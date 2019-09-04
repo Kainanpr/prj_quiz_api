@@ -1,0 +1,7 @@
+CREATE DATABASE prj_quiz_api;
+CREATE USER prj_quiz_api IDENTIFIED BY '';
+GRANT ALL ON prj_quiz_api.* TO prj_quiz_api;
+
+set MAVEN_OPTS= --add-modules java.xml.bind
+mvn clean install -Dskip.jooq.generation=false -DskipTests=true
+mvn clean install -Dskip.jooq.generation=false -Dmaven.test.skip=true
