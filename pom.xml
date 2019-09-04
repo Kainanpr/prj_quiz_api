@@ -17,7 +17,15 @@
 
     <properties>
         <java.version>11</java.version>
+        <jacoco.version>0.8.4</jacoco.version>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+        <sonar.coverage.exclusions>
+            src/main/java/com/prj/quiz/QuizApplication.java
+            ,src/main/java/com/prj/quiz/persistence/jooq/**/*
+        </sonar.coverage.exclusions>
+        <sonar.cpd.exclusions>
+            src/main/java/com/prj/quiz/persistence/jooq/**/*
+        </sonar.cpd.exclusions>
     </properties>
 
     <dependencies>
@@ -64,6 +72,28 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!-- JaCoCo to collect test coverage used by Sonar -->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
