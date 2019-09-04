@@ -21,6 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+        <skip.jooq.generation>true</skip.jooq.generation>
         <sonar.coverage.exclusions>
             src/main/java/com/prj/quiz/QuizApplication.java
             ,src/main/java/com/prj/quiz/persistence/jooq/**/*
@@ -60,10 +61,35 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Database: jOOQ, MySQL and Flyway. Also includes spring-boot-starter-jdbc as dependency -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jooq</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
+        <!-- Scope runtime: classes should be available at runtime, but should not be used directly in compile-time -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- Test dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Use H2 as in-memory database for tests -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -94,6 +120,36 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- jOOQ code generation -->
+            <plugin>
+                <groupId>org.jooq</groupId>
+                <artifactId>jooq-codegen-maven</artifactId>
+
+                <dependencies>
+                    <!-- jOOQ requires JAXB implementations in Java 9+ to generate the classes -->
+                    <dependency>
+                        <groupId>org.glassfish.jaxb</groupId>
+                        <artifactId>jaxb-runtime</artifactId>
+                        <version>${glassfish-jaxb.version}</version>
+                    </dependency>
+                </dependencies>
+
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Whether jOOQ should skip generating sources; defaults to "true". Can be overridden, for
+                             example, with: "mvn clean install -Dskip.jooq.generation=false". -->
+                            <skip>${skip.jooq.generation}</skip>
+                            <configurationFile>src/main/resources/library.xml</configurationFile>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
