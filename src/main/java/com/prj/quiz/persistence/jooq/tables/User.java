@@ -14,6 +14,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
@@ -38,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = 2087592541;
+    private static final long serialVersionUID = 2100221094;
 
     /**
      * The reference instance of <code>user</code>
@@ -56,7 +57,7 @@ public class User extends TableImpl<UserRecord> {
     /**
      * The column <code>user.id</code>.
      */
-    public final TableField<UserRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<UserRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>user.name</code>.
@@ -116,6 +117,14 @@ public class User extends TableImpl<UserRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.USER_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Identity<UserRecord, Integer> getIdentity() {
+        return Internal.createIdentity(com.prj.quiz.persistence.jooq.tables.User.USER, com.prj.quiz.persistence.jooq.tables.User.USER.ID);
     }
 
     /**
