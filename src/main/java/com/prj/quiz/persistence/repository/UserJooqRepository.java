@@ -39,7 +39,7 @@ public class UserJooqRepository implements UserRepository {
                 .setId(userRecord.getId())
                 .setName(userRecord.getName())
                 .setEmail(userRecord.getEmail())
-                .setSenha(userRecord.getSenha())
+                .setPassword(userRecord.getPassword())
                 .build();
     }
 
@@ -58,11 +58,11 @@ public class UserJooqRepository implements UserRepository {
                 .columns(USER.ID,
                         USER.NAME,
                         USER.EMAIL,
-                        USER.SENHA)
+                        USER.PASSWORD)
                 .values(null,
                         user.getName(),
                         user.getEmail(),
-                        user.getSenha())
+                        user.getPassword())
                 .returning(USER.ID)
                 .fetchOne()
                 .getId();
@@ -73,7 +73,7 @@ public class UserJooqRepository implements UserRepository {
         return dslContext.update(USER)
                 .set(USER.NAME, user.getName())
                 .set(USER.EMAIL, user.getEmail())
-                .set(USER.SENHA, user.getSenha())
+                .set(USER.PASSWORD, user.getPassword())
                 .where(USER.ID.eq(user.getId()))
                 .execute();
     }

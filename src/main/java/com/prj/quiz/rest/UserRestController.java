@@ -48,7 +48,7 @@ public class UserRestController {
                 .setId(user.getId())
                 .setName(user.getName())
                 .setEmail(user.getEmail())
-                .setSenha(user.getSenha())
+                .setPassword(user.getPassword())
                 .build();
     }
 
@@ -85,7 +85,7 @@ public class UserRestController {
                 .setId(id)
                 .setName(userWrite.getName())
                 .setEmail(userWrite.getEmail())
-                .setSenha(userWrite.getSenha())
+                .setPassword(userWrite.getPassword())
                 .build();
     }
 

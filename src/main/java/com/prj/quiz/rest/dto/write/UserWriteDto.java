@@ -12,12 +12,12 @@ public final class UserWriteDto {
     @NotBlank
     private final String email;
     @NotBlank
-    private final String senha;
+    private final String password;
 
-    private UserWriteDto(String name, String email, String senha) {
+    private UserWriteDto(String name, String email, String password) {
         this.name = name;
         this.email = email;
-        this.senha = senha;
+        this.password = password;
     }
 
     public String getName() {
@@ -28,8 +28,8 @@ public final class UserWriteDto {
         return email;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
     @Override
@@ -39,12 +39,12 @@ public final class UserWriteDto {
         UserWriteDto user = (UserWriteDto) o;
         return Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(senha, user.senha);
+                Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, email, senha);
+        return Objects.hash(name, email, password);
     }
 
     @Override
@@ -52,14 +52,14 @@ public final class UserWriteDto {
         return "UserWriteDto{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 
     public static final class Builder implements ObjectBuilder {
         private String name;
         private String email;
-        private String senha;
+        private String password;
 
         public Builder setName(String name) {
             this.name = name;
@@ -71,8 +71,8 @@ public final class UserWriteDto {
             return this;
         }
 
-        public Builder setSenha(String senha) {
-            this.senha = senha;
+        public Builder setPassword(String password) {
+            this.password = password;
             return this;
         }
 
@@ -80,9 +80,9 @@ public final class UserWriteDto {
         public UserWriteDto build() {
             Assert.notNull(name, "Name must not be null");
             Assert.notNull(email, "Email must not be null");
-            Assert.notNull(senha, "Senha must not be null");
+            Assert.notNull(password, "Password must not be null");
 
-            return new UserWriteDto(name, email, senha);
+            return new UserWriteDto(name, email, password);
         }
     }
 }

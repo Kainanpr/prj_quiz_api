@@ -9,13 +9,13 @@ public final class User {
     private final Integer id;
     private final String name;
     private final String email;
-    private final String senha;
+    private final String password;
 
-    private User(Integer id, String name, String email, String senha) {
+    private User(Integer id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.senha = senha;
+        this.password = password;
     }
 
     public Integer getId() {
@@ -30,8 +30,8 @@ public final class User {
         return email;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
     @Override
@@ -42,12 +42,12 @@ public final class User {
         return Objects.equals(id, user.id) &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(senha, user.senha);
+                Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, senha);
+        return Objects.hash(id, name, email, password);
     }
 
     @Override
@@ -56,7 +56,7 @@ public final class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 
@@ -64,7 +64,7 @@ public final class User {
         private Integer id;
         private String name;
         private String email;
-        private String senha;
+        private String password;
 
         public Builder setId(Integer id) {
             this.id = id;
@@ -81,8 +81,8 @@ public final class User {
             return this;
         }
 
-        public Builder setSenha(String senha) {
-            this.senha = senha;
+        public Builder setPassword(String password) {
+            this.password = password;
             return this;
         }
 
@@ -94,9 +94,9 @@ public final class User {
 
             Assert.notNull(name, "Name must not be null");
             Assert.notNull(email, "Email must not be null");
-            Assert.notNull(senha, "Senha must not be null");
+            Assert.notNull(password, "Password must not be null");
 
-            return new User(id, name, email, senha);
+            return new User(id, name, email, password);
         }
     }
 }

@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Record4<Integer, String, String, String> {
 
-    private static final long serialVersionUID = -10729636;
+    private static final long serialVersionUID = -126994140;
 
     /**
      * Setter for <code>user.id</code>.
@@ -73,16 +73,16 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
     }
 
     /**
-     * Setter for <code>user.senha</code>.
+     * Setter for <code>user.password</code>.
      */
-    public void setSenha(String value) {
+    public void setPassword(String value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>user.senha</code>.
+     * Getter for <code>user.password</code>.
      */
-    public String getSenha() {
+    public String getPassword() {
         return (String) get(3);
     }
 
@@ -147,7 +147,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
      */
     @Override
     public Field<String> field4() {
-        return User.USER.SENHA;
+        return User.USER.PASSWORD;
     }
 
     /**
@@ -179,7 +179,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
      */
     @Override
     public String component4() {
-        return getSenha();
+        return getPassword();
     }
 
     /**
@@ -211,7 +211,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
      */
     @Override
     public String value4() {
-        return getSenha();
+        return getPassword();
     }
 
     /**
@@ -246,7 +246,7 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
      */
     @Override
     public UserRecord value4(String value) {
-        setSenha(value);
+        setPassword(value);
         return this;
     }
 
@@ -276,12 +276,12 @@ public class UserRecord extends UpdatableRecordImpl<UserRecord> implements Recor
     /**
      * Create a detached, initialised UserRecord
      */
-    public UserRecord(Integer id, String name, String email, String senha) {
+    public UserRecord(Integer id, String name, String email, String password) {
         super(User.USER);
 
         set(0, id);
         set(1, name);
         set(2, email);
-        set(3, senha);
+        set(3, password);
     }
 }

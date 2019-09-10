@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = 2100221094;
+    private static final long serialVersionUID = 49437460;
 
     /**
      * The reference instance of <code>user</code>
@@ -70,9 +70,9 @@ public class User extends TableImpl<UserRecord> {
     public final TableField<UserRecord, String> EMAIL = createField("email", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
 
     /**
-     * The column <code>user.senha</code>.
+     * The column <code>user.password</code>.
      */
-    public final TableField<UserRecord, String> SENHA = createField("senha", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
+    public final TableField<UserRecord, String> PASSWORD = createField("password", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
 
     /**
      * Create a <code>user</code> table reference
