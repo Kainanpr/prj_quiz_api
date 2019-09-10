@@ -4,6 +4,8 @@
 package com.prj.quiz.persistence.jooq;
 
 
+import com.prj.quiz.persistence.jooq.tables.Content;
+import com.prj.quiz.persistence.jooq.tables.Theme;
 import com.prj.quiz.persistence.jooq.tables.User;
 
 import javax.annotation.Generated;
@@ -30,6 +32,9 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index CONTENT_CONTENT_FK_THEME = Indexes0.CONTENT_CONTENT_FK_THEME;
+    public static final Index CONTENT_PRIMARY = Indexes0.CONTENT_PRIMARY;
+    public static final Index THEME_PRIMARY = Indexes0.THEME_PRIMARY;
     public static final Index USER_PRIMARY = Indexes0.USER_PRIMARY;
 
     // -------------------------------------------------------------------------
@@ -37,6 +42,9 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
+        public static Index CONTENT_CONTENT_FK_THEME = Internal.createIndex("content_fk_theme", Content.CONTENT, new OrderField[] { Content.CONTENT.THEME_ID }, false);
+        public static Index CONTENT_PRIMARY = Internal.createIndex("PRIMARY", Content.CONTENT, new OrderField[] { Content.CONTENT.ID }, true);
+        public static Index THEME_PRIMARY = Internal.createIndex("PRIMARY", Theme.THEME, new OrderField[] { Theme.THEME.ID }, true);
         public static Index USER_PRIMARY = Internal.createIndex("PRIMARY", User.USER, new OrderField[] { User.USER.ID }, true);
     }
 }
