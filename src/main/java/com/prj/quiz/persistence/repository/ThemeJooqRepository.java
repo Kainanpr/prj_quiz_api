@@ -33,11 +33,11 @@ public class ThemeJooqRepository implements ThemeRepository {
     }
 
     private Theme toTheme(Record record) {
-        final ThemeRecord userRecord = record.into(ThemeRecord.class);
+        final ThemeRecord themeRecord = record.into(ThemeRecord.class);
 
         return new Theme.Builder()
-                .setId(userRecord.getId())
-                .setName(userRecord.getName())
+                .setId(themeRecord.getId())
+                .setName(themeRecord.getName())
                 .build();
     }
 
@@ -51,22 +51,22 @@ public class ThemeJooqRepository implements ThemeRepository {
     }
 
     @Override
-    public int save(Theme user) {
+    public int save(Theme theme) {
         return dslContext.insertInto(THEME)
                 .columns(THEME.ID,
                         THEME.NAME)
                 .values(null,
-                        user.getName())
+                        theme.getName())
                 .returning(THEME.ID)
                 .fetchOne()
                 .getId();
     }
 
     @Override
-    public int update(Theme user) {
+    public int update(Theme theme) {
         return dslContext.update(THEME)
-                .set(THEME.NAME, user.getName())
-                .where(THEME.ID.eq(user.getId()))
+                .set(THEME.NAME, theme.getName())
+                .where(THEME.ID.eq(theme.getId()))
                 .execute();
     }
 

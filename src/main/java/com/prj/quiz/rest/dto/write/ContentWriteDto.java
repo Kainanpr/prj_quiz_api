@@ -1,23 +1,23 @@
-package com.prj.quiz.model;
+package com.prj.quiz.rest.dto.write;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.prj.quiz.util.ObjectBuilder;
 import org.springframework.util.Assert;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
-public final class Content {
-    private final Integer id;
+public final class ContentWriteDto {
+    @NotBlank
     private final String name;
+    @NotNull
     private final Integer themeId;
 
-    private Content(Integer id, String name, Integer themeId) {
-        this.id = id;
+    @JsonCreator
+    private ContentWriteDto(String name, Integer themeId) {
         this.name = name;
         this.themeId = themeId;
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public String getName() {
@@ -32,35 +32,27 @@ public final class Content {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Content content = (Content) o;
-        return Objects.equals(id, content.id) &&
-                Objects.equals(name, content.name) &&
-                Objects.equals(themeId, content.themeId);
+        ContentWriteDto that = (ContentWriteDto) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(themeId, that.themeId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, themeId);
+        return Objects.hash(name, themeId);
     }
 
     @Override
     public String toString() {
-        return "Content{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+        return "ContentWriteDto{" +
+                "name='" + name + '\'' +
                 ", themeId=" + themeId +
                 '}';
     }
 
     public static final class Builder implements ObjectBuilder {
-        private Integer id;
         private String name;
         private Integer themeId;
-
-        public Builder setId(Integer id) {
-            this.id = id;
-            return this;
-        }
 
         public Builder setName(String name) {
             this.name = name;
@@ -73,15 +65,11 @@ public final class Content {
         }
 
         @Override
-        public Content build() {
-            if (id != null) {
-                Assert.isTrue(id > 0, "ID must be greater than 0");
-            }
-
+        public ContentWriteDto build() {
             Assert.notNull(name, "Name must not be null");
             Assert.notNull(themeId, "ThemeId must not be null");
 
-            return new Content(id, name, themeId);
+            return new ContentWriteDto(name, themeId);
         }
     }
 }

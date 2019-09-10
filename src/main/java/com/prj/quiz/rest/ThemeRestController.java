@@ -64,7 +64,6 @@ public class ThemeRestController {
                 .body(responseBody);
     }
 
-
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ThemeReadDto> create(@RequestBody @Valid ThemeWriteDto themeWrite) {
         LOGGER.info("Theme received to save: {}", themeWrite);

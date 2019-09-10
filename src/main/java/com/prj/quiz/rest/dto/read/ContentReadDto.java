@@ -1,16 +1,16 @@
-package com.prj.quiz.model;
+package com.prj.quiz.rest.dto.read;
 
 import com.prj.quiz.util.ObjectBuilder;
 import org.springframework.util.Assert;
 
 import java.util.Objects;
 
-public final class Content {
+public final class ContentReadDto {
     private final Integer id;
     private final String name;
     private final Integer themeId;
 
-    private Content(Integer id, String name, Integer themeId) {
+    private ContentReadDto(Integer id, String name, Integer themeId) {
         this.id = id;
         this.name = name;
         this.themeId = themeId;
@@ -32,10 +32,10 @@ public final class Content {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Content content = (Content) o;
-        return Objects.equals(id, content.id) &&
-                Objects.equals(name, content.name) &&
-                Objects.equals(themeId, content.themeId);
+        ContentReadDto that = (ContentReadDto) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(themeId, that.themeId);
     }
 
     @Override
@@ -45,7 +45,7 @@ public final class Content {
 
     @Override
     public String toString() {
-        return "Content{" +
+        return "ContentReadDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", themeId=" + themeId +
@@ -73,7 +73,7 @@ public final class Content {
         }
 
         @Override
-        public Content build() {
+        public ContentReadDto build() {
             if (id != null) {
                 Assert.isTrue(id > 0, "ID must be greater than 0");
             }
@@ -81,7 +81,7 @@ public final class Content {
             Assert.notNull(name, "Name must not be null");
             Assert.notNull(themeId, "ThemeId must not be null");
 
-            return new Content(id, name, themeId);
+            return new ContentReadDto(id, name, themeId);
         }
     }
 }
