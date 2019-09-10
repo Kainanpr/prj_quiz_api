@@ -1,5 +1,6 @@
 package com.prj.quiz.rest.dto.write;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.prj.quiz.util.ObjectBuilder;
 import org.springframework.util.Assert;
 
@@ -14,6 +15,7 @@ public final class UserWriteDto {
     @NotBlank
     private final String password;
 
+    @JsonCreator
     private UserWriteDto(String name, String email, String password) {
         this.name = name;
         this.email = email;

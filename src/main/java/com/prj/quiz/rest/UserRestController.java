@@ -76,7 +76,7 @@ public class UserRestController {
 
         final UserReadDto responseBody = toUserReadDto(savedUser);
         return ResponseEntity
-                .created(URI.create("/v1/user/" + savedUser.getId()))
+                .created(URI.create("/v1/users/" + savedUser.getId()))
                 .body(responseBody);
     }
 
@@ -97,9 +97,9 @@ public class UserRestController {
         final User user = toUserModel(id, userWrite);
 
         try {
-            final User updatedAircraft = userService.update(user);
+            final User updatedUser = userService.update(user);
 
-            final UserReadDto responseBody = toUserReadDto(updatedAircraft);
+            final UserReadDto responseBody = toUserReadDto(updatedUser);
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(responseBody);
