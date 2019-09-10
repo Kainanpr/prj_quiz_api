@@ -52,8 +52,8 @@ public class ContentRestController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<ContentReadDto>> getAll() {
-        final List<Content> contentList = contentService.getAll();
+    public ResponseEntity<List<ContentReadDto>> getAll(Integer themeId) {
+        final List<Content> contentList = contentService.getAll(themeId);
         final List<ContentReadDto> responseBody = new ArrayList<>(contentList.size());
 
         for (Content content : contentList) {

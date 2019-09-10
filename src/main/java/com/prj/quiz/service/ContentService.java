@@ -31,8 +31,8 @@ public class ContentService {
         return content;
     }
 
-    public List<Content> getAll() {
-        final List<Content> contentList = contentRepository.getAll();
+    public List<Content> getAll(Integer themeId) {
+        final List<Content> contentList = contentRepository.getAll(themeId);
         LOGGER.info("Retrieved all contents: {}", contentList);
         return contentList;
     }

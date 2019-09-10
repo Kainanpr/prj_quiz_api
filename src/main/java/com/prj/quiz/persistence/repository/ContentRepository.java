@@ -7,7 +7,7 @@ import java.util.List;
 public interface ContentRepository {
     Content getById(Integer id);
 
-    List<Content> getAll();
+    List<Content> getAll(Integer themeId);
 
     int save(Content content);
 

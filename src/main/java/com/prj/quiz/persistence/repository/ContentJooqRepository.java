@@ -3,6 +3,7 @@ package com.prj.quiz.persistence.repository;
 
 import com.prj.quiz.model.Content;
 import com.prj.quiz.persistence.jooq.tables.records.ContentRecord;
+import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.prj.quiz.persistence.jooq.tables.Content.CONTENT;
+import static org.jooq.impl.DSL.trueCondition;
 
 @Repository
 @Transactional
@@ -43,12 +45,25 @@ public class ContentJooqRepository implements ContentRepository {
     }
 
     @Override
-    public List<Content> getAll() {
+    public List<Content> getAll(Integer themeId) {
+        final Condition queryCondition = buildCondition(themeId);
+
         final Result<Record> records = dslContext.select()
                 .from(CONTENT)
+                .where(queryCondition)
                 .fetch();
 
         return records.map(record -> toContent(record));
+    }
+
+    private Condition buildCondition(Integer themeId) {
+        Condition result = trueCondition();
+
+        if (themeId != null) {
+            result = result.and(CONTENT.THEME_ID.eq(themeId));
+        }
+
+        return result;
     }
 
     @Override
