@@ -1,7 +1,9 @@
 package com.prj.quiz.persistence.repository;
 
 
+import com.prj.quiz.model.Level;
 import com.prj.quiz.model.User;
+import com.prj.quiz.persistence.jooq.tables.records.LevelRecord;
 import com.prj.quiz.persistence.jooq.tables.records.UserRecord;
 import org.jooq.DSLContext;
 import org.jooq.Record;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+import static com.prj.quiz.persistence.jooq.tables.Level.LEVEL;
 import static com.prj.quiz.persistence.jooq.tables.User.USER;
 
 @Repository
@@ -26,6 +29,7 @@ public class UserJooqRepository implements UserRepository {
     public User getById(Integer id) {
         final Record record = dslContext.select()
                 .from(USER)
+                .join(LEVEL).on(USER.LEVEL_ID.eq(LEVEL.ID))
                 .where(USER.ID.eq(id))
                 .fetchOne();
 
@@ -34,12 +38,19 @@ public class UserJooqRepository implements UserRepository {
 
     private User toUser(Record record) {
         final UserRecord userRecord = record.into(UserRecord.class);
+        final LevelRecord levelRecord = record.into(LevelRecord.class);
+
+        final Level level = new Level.Builder()
+                .setId(levelRecord.getId())
+                .setName(levelRecord.getName())
+                .build();
 
         return new User.Builder()
                 .setId(userRecord.getId())
                 .setName(userRecord.getName())
                 .setEmail(userRecord.getEmail())
                 .setPassword(userRecord.getPassword())
+                .setLevel(level)
                 .build();
     }
 
@@ -47,6 +58,7 @@ public class UserJooqRepository implements UserRepository {
     public List<User> getAll() {
         final Result<Record> records = dslContext.select()
                 .from(USER)
+                .join(LEVEL).on(USER.LEVEL_ID.eq(LEVEL.ID))
                 .fetch();
 
         return records.map(record -> toUser(record));
