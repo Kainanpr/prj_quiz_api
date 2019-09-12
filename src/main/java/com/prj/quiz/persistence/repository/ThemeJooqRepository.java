@@ -1,6 +1,5 @@
 package com.prj.quiz.persistence.repository;
 
-
 import com.prj.quiz.model.Theme;
 import com.prj.quiz.persistence.jooq.tables.records.ThemeRecord;
 import org.jooq.DSLContext;

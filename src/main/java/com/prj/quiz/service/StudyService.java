@@ -1,7 +1,7 @@
 package com.prj.quiz.service;
 
 import com.prj.quiz.model.Study;
-import com.prj.quiz.model.filter.StudyFilter;
+import com.prj.quiz.model.filter.CommonFilter;
 import com.prj.quiz.persistence.repository.StudyRepository;
 import com.prj.quiz.service.exception.ObjectNotFoundException;
 import org.slf4j.Logger;
@@ -32,8 +32,8 @@ public class StudyService {
         return study;
     }
 
-    public List<Study> getAll(StudyFilter studyFilter) {
-        final List<Study> studyList = studyRepository.getAll(studyFilter);
+    public List<Study> getAll(CommonFilter commonFilter) {
+        final List<Study> studyList = studyRepository.getAll(commonFilter);
         LOGGER.info("Retrieved all studies: {}", studyList);
         return studyList;
     }

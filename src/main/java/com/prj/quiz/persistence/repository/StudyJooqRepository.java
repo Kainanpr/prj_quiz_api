@@ -1,8 +1,7 @@
 package com.prj.quiz.persistence.repository;
 
-
 import com.prj.quiz.model.Study;
-import com.prj.quiz.model.filter.StudyFilter;
+import com.prj.quiz.model.filter.CommonFilter;
 import com.prj.quiz.persistence.jooq.tables.records.StudyRecord;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
@@ -48,8 +47,8 @@ public class StudyJooqRepository implements StudyRepository {
     }
 
     @Override
-    public List<Study> getAll(StudyFilter studyFilter) {
-        final Condition queryCondition = buildCondition(studyFilter);
+    public List<Study> getAll(CommonFilter commonFilter) {
+        final Condition queryCondition = buildCondition(commonFilter);
 
         final Result<Record> records = dslContext.select()
                 .from(STUDY)
@@ -59,7 +58,7 @@ public class StudyJooqRepository implements StudyRepository {
         return records.map(record -> toStudy(record));
     }
 
-    private Condition buildCondition(StudyFilter filter) {
+    private Condition buildCondition(CommonFilter filter) {
         Condition result = trueCondition();
 
         if (filter.getContentId() != null) {

@@ -1,6 +1,5 @@
 package com.prj.quiz.persistence.repository;
 
-
 import com.prj.quiz.model.Content;
 import com.prj.quiz.persistence.jooq.tables.records.ContentRecord;
 import org.jooq.Condition;

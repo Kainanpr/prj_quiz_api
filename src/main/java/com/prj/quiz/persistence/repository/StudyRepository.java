@@ -1,14 +1,14 @@
 package com.prj.quiz.persistence.repository;
 
 import com.prj.quiz.model.Study;
-import com.prj.quiz.model.filter.StudyFilter;
+import com.prj.quiz.model.filter.CommonFilter;
 
 import java.util.List;
 
 public interface StudyRepository {
     Study getById(Integer id);
 
-    List<Study> getAll(StudyFilter studyFilter);
+    List<Study> getAll(CommonFilter commonFilter);
 
     int save(Study study);
 

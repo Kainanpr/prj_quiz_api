@@ -1,6 +1,5 @@
 package com.prj.quiz.persistence.repository;
 
-
 import com.prj.quiz.model.Level;
 import com.prj.quiz.model.User;
 import com.prj.quiz.persistence.jooq.tables.records.LevelRecord;

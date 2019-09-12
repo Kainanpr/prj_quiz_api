@@ -4,12 +4,12 @@ import com.prj.quiz.util.ObjectBuilder;
 
 import java.util.Objects;
 
-public final class StudyFilter {
+public final class CommonFilter {
     private final Integer contentId;
     private final Integer levelId;
 
     //Note: the constructor for this class must be public so that it can be instantiated by Spring
-    public StudyFilter(Integer contentId, Integer levelId) {
+    public CommonFilter(Integer contentId, Integer levelId) {
         this.contentId = contentId;
         this.levelId = levelId;
     }
@@ -26,7 +26,7 @@ public final class StudyFilter {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        StudyFilter that = (StudyFilter) o;
+        CommonFilter that = (CommonFilter) o;
         return Objects.equals(contentId, that.contentId) &&
                 Objects.equals(levelId, that.levelId);
     }
@@ -38,7 +38,7 @@ public final class StudyFilter {
 
     @Override
     public String toString() {
-        return "StudyFilter{" +
+        return "CommonFilter{" +
                 "contentId=" + contentId +
                 ", levelId=" + levelId +
                 '}';
@@ -54,8 +54,8 @@ public final class StudyFilter {
         }
 
         @Override
-        public StudyFilter build() {
-            return new StudyFilter(contentId, levelId);
+        public CommonFilter build() {
+            return new CommonFilter(contentId, levelId);
         }
     }
 }
