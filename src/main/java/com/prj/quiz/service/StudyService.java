@@ -1,7 +1,7 @@
 package com.prj.quiz.service;
 
 import com.prj.quiz.model.Study;
-import com.prj.quiz.model.filter.CommonFilter;
+import com.prj.quiz.rest.filter.CommonFilter;
 import com.prj.quiz.persistence.repository.StudyRepository;
 import com.prj.quiz.service.exception.ObjectNotFoundException;
 import org.slf4j.Logger;

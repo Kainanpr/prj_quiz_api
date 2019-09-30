@@ -1,7 +1,7 @@
 package com.prj.quiz.persistence.repository;
 
 import com.prj.quiz.model.Study;
-import com.prj.quiz.model.filter.CommonFilter;
+import com.prj.quiz.rest.filter.CommonFilter;
 
 import java.util.List;
 

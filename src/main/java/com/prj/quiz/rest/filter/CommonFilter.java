@@ -1,4 +1,4 @@
-package com.prj.quiz.model.filter;
+package com.prj.quiz.rest.filter;
 
 import com.prj.quiz.util.ObjectBuilder;
 

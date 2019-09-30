@@ -1,7 +1,7 @@
 package com.prj.quiz.rest;
 
 import com.prj.quiz.model.Study;
-import com.prj.quiz.model.filter.CommonFilter;
+import com.prj.quiz.rest.filter.CommonFilter;
 import com.prj.quiz.rest.dto.read.StudyReadDto;
 import com.prj.quiz.rest.dto.write.StudyWriteDto;
 import com.prj.quiz.service.StudyService;

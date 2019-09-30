@@ -1,7 +1,7 @@
 package com.prj.quiz.persistence.repository;
 
 import com.prj.quiz.model.Test;
-import com.prj.quiz.model.filter.CommonFilter;
+import com.prj.quiz.rest.filter.CommonFilter;
 import com.prj.quiz.persistence.jooq.tables.records.TestRecord;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
