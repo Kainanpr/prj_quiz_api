@@ -162,14 +162,15 @@
                         <goals>
                             <goal>generate</goal>
                         </goals>
-                        <configuration>
-                            <!-- Whether jOOQ should skip generating sources; defaults to "true". Can be overridden, for
-                             example, with: "mvn clean install -Dskip.jooq.generation=false". -->
-                            <skip>${skip.jooq.generation}</skip>
-                            <configurationFile>src/main/resources/library.xml</configurationFile>
-                        </configuration>
                     </execution>
                 </executions>
+
+                <configuration>
+                    <!-- Whether jOOQ should skip generating sources; defaults to "true". Can be overridden, for
+                     example, with: "mvn clean install -Dskip.jooq.generation=false". -->
+                    <skip>${skip.jooq.generation}</skip>
+                    <configurationFile>src/main/resources/library.xml</configurationFile>
+                </configuration>
             </plugin>
         </plugins>
     </build>
