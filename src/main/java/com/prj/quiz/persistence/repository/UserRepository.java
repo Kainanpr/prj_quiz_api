@@ -7,6 +7,8 @@ import java.util.List;
 public interface UserRepository {
     User getById(Integer id);
 
+    User login(String email, String password);
+
     List<User> getAll();
 
     int save(User user);

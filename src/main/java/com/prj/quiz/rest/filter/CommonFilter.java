@@ -53,6 +53,11 @@ public final class CommonFilter {
             return this;
         }
 
+        public Builder setLevelId(Integer levelId) {
+            this.levelId = levelId;
+            return this;
+        }
+
         @Override
         public CommonFilter build() {
             return new CommonFilter(contentId, levelId);
