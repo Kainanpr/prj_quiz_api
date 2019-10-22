@@ -104,7 +104,6 @@ public class ContentRestController {
             LOGGER.error("{}", ex.getMessage());
             return ResponseEntity.notFound().build();
         }
-
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
