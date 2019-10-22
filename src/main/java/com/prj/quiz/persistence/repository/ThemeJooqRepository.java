@@ -16,9 +16,11 @@ import static com.prj.quiz.persistence.jooq.tables.Theme.THEME;
 @Transactional
 public class ThemeJooqRepository implements ThemeRepository {
     private final DSLContext dslContext;
+    private final ContentRepository contentRepository;
 
-    public ThemeJooqRepository(DSLContext dslContext) {
+    public ThemeJooqRepository(DSLContext dslContext, ContentRepository contentRepository) {
         this.dslContext = dslContext;
+        this.contentRepository = contentRepository;
     }
 
     @Override
@@ -37,6 +39,7 @@ public class ThemeJooqRepository implements ThemeRepository {
         return new Theme.Builder()
                 .setId(themeRecord.getId())
                 .setName(themeRecord.getName())
+                .setContents(contentRepository.getAll(themeRecord.getId()))
                 .build();
     }
 

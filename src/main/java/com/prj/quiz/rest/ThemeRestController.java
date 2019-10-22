@@ -1,6 +1,8 @@
 package com.prj.quiz.rest;
 
+import com.prj.quiz.model.Content;
 import com.prj.quiz.model.Theme;
+import com.prj.quiz.rest.dto.read.ContentReadDto;
 import com.prj.quiz.rest.dto.read.ThemeReadDto;
 import com.prj.quiz.rest.dto.write.ThemeWriteDto;
 import com.prj.quiz.service.ThemeService;
@@ -47,7 +49,22 @@ public class ThemeRestController {
         return new ThemeReadDto.Builder()
                 .setId(theme.getId())
                 .setName(theme.getName())
+                .setContents(toContentReadDto(theme.getContents()))
                 .build();
+    }
+
+    private List<ContentReadDto> toContentReadDto(List<Content> contents) {
+        final List<ContentReadDto> contentReadDto = new ArrayList<>();
+
+        for (Content content : contents) {
+            contentReadDto.add(new ContentReadDto.Builder()
+                    .setId(content.getId())
+                    .setName(content.getName())
+                    .setThemeId(content.getThemeId())
+                    .build());
+        }
+
+        return contentReadDto;
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
