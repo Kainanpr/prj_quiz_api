@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = 514499972;
+    private static final long serialVersionUID = 49437460;
 
     /**
      * The reference instance of <code>user</code>
@@ -73,11 +73,6 @@ public class User extends TableImpl<UserRecord> {
      * The column <code>user.password</code>.
      */
     public final TableField<UserRecord, String> PASSWORD = createField("password", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
-
-    /**
-     * The column <code>user.level_id</code>.
-     */
-    public final TableField<UserRecord, Integer> LEVEL_ID = createField("level_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.inline("1", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * Create a <code>user</code> table reference
@@ -121,7 +116,7 @@ public class User extends TableImpl<UserRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.USER_PRIMARY, Indexes.USER_USER_FK_LEVEL);
+        return Arrays.<Index>asList(Indexes.USER_PRIMARY);
     }
 
     /**

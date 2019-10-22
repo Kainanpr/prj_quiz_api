@@ -10,14 +10,12 @@ public final class User {
     private final String name;
     private final String email;
     private final String password;
-    private final Level level;
 
-    private User(Integer id, String name, String email, String password, Level level) {
+    private User(Integer id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.level = level;
     }
 
     public Integer getId() {
@@ -36,10 +34,6 @@ public final class User {
         return password;
     }
 
-    public Level getLevel() {
-        return level;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,13 +42,12 @@ public final class User {
         return Objects.equals(id, user.id) &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(level, user.level);
+                Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, password, level);
+        return Objects.hash(id, name, email, password);
     }
 
     @Override
@@ -64,7 +57,6 @@ public final class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", level=" + level +
                 '}';
     }
 
@@ -73,7 +65,6 @@ public final class User {
         private String name;
         private String email;
         private String password;
-        private Level level;
 
         public Builder setId(Integer id) {
             this.id = id;
@@ -95,11 +86,6 @@ public final class User {
             return this;
         }
 
-        public Builder setLevel(Level level) {
-            this.level = level;
-            return this;
-        }
-
         @Override
         public User build() {
             if (id != null) {
@@ -110,7 +96,7 @@ public final class User {
             Assert.notNull(email, "Email must not be null");
             Assert.notNull(password, "Password must not be null");
 
-            return new User(id, name, email, password, level);
+            return new User(id, name, email, password);
         }
     }
 }

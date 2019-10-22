@@ -10,14 +10,12 @@ public final class UserReadDto {
     private final String name;
     private final String email;
     private final String password;
-    private final LevelReadDto level;
 
-    private UserReadDto(Integer id, String name, String email, String password, LevelReadDto level) {
+    private UserReadDto(Integer id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.level = level;
     }
 
     public Integer getId() {
@@ -36,10 +34,6 @@ public final class UserReadDto {
         return password;
     }
 
-    public LevelReadDto getLevel() {
-        return level;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,13 +42,12 @@ public final class UserReadDto {
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(email, that.email) &&
-                Objects.equals(password, that.password) &&
-                Objects.equals(level, that.level);
+                Objects.equals(password, that.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, password, level);
+        return Objects.hash(id, name, email, password);
     }
 
     @Override
@@ -64,7 +57,6 @@ public final class UserReadDto {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", level=" + level +
                 '}';
     }
 
@@ -73,7 +65,6 @@ public final class UserReadDto {
         private String name;
         private String email;
         private String password;
-        private LevelReadDto level;
 
         public Builder setId(Integer id) {
             this.id = id;
@@ -95,11 +86,6 @@ public final class UserReadDto {
             return this;
         }
 
-        public Builder setLevel(LevelReadDto level) {
-            this.level = level;
-            return this;
-        }
-
         @Override
         public UserReadDto build() {
             if (id != null) {
@@ -109,9 +95,8 @@ public final class UserReadDto {
             Assert.notNull(name, "Name must not be null");
             Assert.notNull(email, "Email must not be null");
             Assert.notNull(password, "Password must not be null");
-            Assert.notNull(level, "Level must not be null");
 
-            return new UserReadDto(id, name, email, password, level);
+            return new UserReadDto(id, name, email, password);
         }
     }
 }

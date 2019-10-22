@@ -1,8 +1,6 @@
 package com.prj.quiz.rest;
 
-import com.prj.quiz.model.Level;
 import com.prj.quiz.model.User;
-import com.prj.quiz.rest.dto.read.LevelReadDto;
 import com.prj.quiz.rest.dto.read.UserReadDto;
 import com.prj.quiz.rest.dto.write.UserWriteDto;
 import com.prj.quiz.rest.filter.Login;
@@ -66,14 +64,6 @@ public class UserRestController {
                 .setName(user.getName())
                 .setEmail(user.getEmail())
                 .setPassword(user.getPassword())
-                .setLevel(toLevelReadDto(user.getLevel()))
-                .build();
-    }
-
-    private LevelReadDto toLevelReadDto(Level level) {
-        return new LevelReadDto.Builder()
-                .setId(level.getId())
-                .setName(level.getName())
                 .build();
     }
 
