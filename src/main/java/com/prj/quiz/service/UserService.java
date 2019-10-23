@@ -1,5 +1,7 @@
 package com.prj.quiz.service;
 
+import com.prj.quiz.model.Content;
+import com.prj.quiz.model.Game;
 import com.prj.quiz.model.User;
 import com.prj.quiz.persistence.repository.UserRepository;
 import com.prj.quiz.service.exception.ObjectNotFoundException;
@@ -16,8 +18,13 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    private final ContentService contentService;
+    private final GameService gameService;
+
+    public UserService(UserRepository userRepository, ContentService contentService, GameService gameService) {
         this.userRepository = userRepository;
+        this.contentService = contentService;
+        this.gameService = gameService;
     }
 
     public User getById(Integer id) {
@@ -51,6 +58,15 @@ public class UserService {
     @Transactional
     public User save(User user) {
         final int savedId = userRepository.save(user);
+
+        final List<Content> allContents = contentService.getAll(null);
+
+        for (Content content : allContents) {
+            gameService.save(new Game.Builder()
+                    .setUserId(savedId)
+                    .setContentId(content.getId())
+                    .setLevelId(1).build());
+        }
 
         final User savedUser = userRepository.getById(savedId);
         LOGGER.info("Saved User: {}", savedUser);

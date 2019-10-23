@@ -53,6 +53,8 @@ public class ContentRestController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<ContentReadDto>> getAll(Integer themeId) {
+        LOGGER.info("themeId received to filter: {}", themeId);
+
         final List<Content> contentList = contentService.getAll(themeId);
         final List<ContentReadDto> responseBody = new ArrayList<>(contentList.size());
 
