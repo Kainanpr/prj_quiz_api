@@ -1,6 +1,8 @@
 package com.prj.quiz.service;
 
 import com.prj.quiz.model.Content;
+import com.prj.quiz.model.Game;
+import com.prj.quiz.model.User;
 import com.prj.quiz.persistence.repository.ContentRepository;
 import com.prj.quiz.service.exception.ObjectNotFoundException;
 import org.slf4j.Logger;
@@ -16,8 +18,13 @@ public class ContentService {
 
     private final ContentRepository contentRepository;
 
-    public ContentService(ContentRepository contentRepository) {
+    private final UserService userService;
+    private final GameService gameService;
+
+    public ContentService(ContentRepository contentRepository, UserService userService, GameService gameService) {
         this.contentRepository = contentRepository;
+        this.userService = userService;
+        this.gameService = gameService;
     }
 
     public Content getById(Integer id) {
@@ -40,6 +47,15 @@ public class ContentService {
     @Transactional
     public Content save(Content content) {
         final int savedId = contentRepository.save(content);
+
+        final List<User> allUsers = userService.getAll();
+
+        for (User user : allUsers) {
+            gameService.save(new Game.Builder()
+                    .setUserId(user.getId())
+                    .setContentId(savedId)
+                    .setLevelId(1).build());
+        }
 
         final Content savedContent = contentRepository.getById(savedId);
         LOGGER.info("Saved Content: {}", savedContent);
