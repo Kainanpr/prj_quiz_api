@@ -7,6 +7,7 @@ import com.prj.quiz.persistence.repository.ContentRepository;
 import com.prj.quiz.service.exception.ObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,13 +19,18 @@ public class ContentService {
 
     private final ContentRepository contentRepository;
 
-    private final UserService userService;
     private final GameService gameService;
+    private UserService userService;
 
-    public ContentService(ContentRepository contentRepository, UserService userService, GameService gameService) {
+    public ContentService(ContentRepository contentRepository, GameService gameService) {
         this.contentRepository = contentRepository;
-        this.userService = userService;
         this.gameService = gameService;
+    }
+
+    // Using Setter-based Dependency Injection to allow circular dependency
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     public Content getById(Integer id) {
