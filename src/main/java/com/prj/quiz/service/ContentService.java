@@ -27,7 +27,7 @@ public class ContentService {
         this.gameService = gameService;
     }
 
-    // Using Setter-based Dependency Injection to allow circular dependency
+    // Using Setter-based Dependency Injection to allow circular dependency (ContentService has UserService and vice versa)
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -84,6 +84,8 @@ public class ContentService {
 
     @Transactional
     public void delete(Integer id) {
+        gameService.delete(id);
+
         final int affectedRows = contentRepository.delete(id);
 
         if (affectedRows == 0) {

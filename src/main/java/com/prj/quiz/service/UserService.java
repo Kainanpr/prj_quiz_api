@@ -28,7 +28,7 @@ public class UserService {
         this.gameService = gameService;
     }
 
-    // Using Setter-based Dependency Injection to allow circular dependency
+    // Using Setter-based Dependency Injection to allow circular dependency (UserService has ContentService and vice versa)
     @Autowired
     public void setContentService(ContentService contentService) {
         this.contentService = contentService;

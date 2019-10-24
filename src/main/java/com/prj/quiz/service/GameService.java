@@ -61,11 +61,11 @@ public class GameService {
     }
 
     @Transactional
-    public void delete(Integer id) {
-        final int affectedRows = gameRepository.delete(id);
+    public void delete(Integer contentId) {
+        final int affectedRows = gameRepository.delete(contentId);
 
         if (affectedRows == 0) {
-            throw new ObjectNotFoundException("Could not find game with id (not deleted): " + id);
+            throw new ObjectNotFoundException("Could not find game with contentId (not deleted): " + contentId);
         }
 
         LOGGER.info("Deleted game (deleted rows: {})", affectedRows);

@@ -111,11 +111,11 @@ public class GameRestController {
     }
 
     @DeleteMapping(value = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
-        LOGGER.info("ID received to delete: {}", id);
+    public ResponseEntity<String> delete(@PathVariable("id") Integer contentId) {
+        LOGGER.info("ID received to delete: {}", contentId);
 
         try {
-            gameService.delete(id);
+            gameService.delete(contentId);
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .build();

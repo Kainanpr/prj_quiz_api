@@ -95,9 +95,9 @@ public class GameJooqRepository implements GameRepository {
     }
 
     @Override
-    public int delete(Integer id) {
+    public int delete(Integer contentId) {
         return dslContext.deleteFrom(GAME)
-                .where(GAME.ID.eq(id))
+                .where(GAME.CONTENT_ID.eq(contentId))
                 .execute();
     }
 }

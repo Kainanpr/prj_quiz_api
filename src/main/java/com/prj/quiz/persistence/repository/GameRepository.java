@@ -13,5 +13,5 @@ public interface GameRepository {
 
     int update(Game game);
 
-    int delete(Integer id);
+    int delete(Integer contentId);
 }
