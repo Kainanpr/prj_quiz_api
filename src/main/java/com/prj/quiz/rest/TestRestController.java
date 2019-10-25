@@ -61,6 +61,8 @@ public class TestRestController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<TestReadDto>> getAll(CommonFilter commonFilter) {
+        LOGGER.info("Parameters received to filter: {}", commonFilter);
+
         final List<Test> testList = testService.getAll(commonFilter);
         final List<TestReadDto> responseBody = new ArrayList<>(testList.size());
 

@@ -56,6 +56,8 @@ public class StudyRestController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<StudyReadDto>> getAll(CommonFilter commonFilter) {
+        LOGGER.info("Parameters received to filter: {}", commonFilter);
+
         final List<Study> studyList = studyService.getAll(commonFilter);
         final List<StudyReadDto> responseBody = new ArrayList<>(studyList.size());
 
