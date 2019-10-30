@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = 49437460;
+    private static final long serialVersionUID = -495158816;
 
     /**
      * The reference instance of <code>user</code>
@@ -116,7 +116,7 @@ public class User extends TableImpl<UserRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.USER_PRIMARY);
+        return Arrays.<Index>asList(Indexes.USER_PRIMARY, Indexes.USER_USER_UK_EMAIL);
     }
 
     /**
@@ -142,6 +142,7 @@ public class User extends TableImpl<UserRecord> {
     public List<UniqueKey<UserRecord>> getKeys() {
         return Arrays.<UniqueKey<UserRecord>>asList(
               Internal.createUniqueKey(com.prj.quiz.persistence.jooq.tables.User.USER, "KEY_user_PRIMARY", com.prj.quiz.persistence.jooq.tables.User.USER.ID)
+            , Internal.createUniqueKey(com.prj.quiz.persistence.jooq.tables.User.USER, "KEY_user_user_uk_email", com.prj.quiz.persistence.jooq.tables.User.USER.EMAIL)
         );
     }
 
