@@ -80,7 +80,6 @@ public final class Theme {
             }
 
             Assert.notNull(name, "Name must not be null");
-            Assert.notNull(contents, "Contents must not be null");
 
             return new Theme(id, name, contents);
         }

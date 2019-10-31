@@ -2,6 +2,7 @@ package com.prj.quiz.service;
 
 import com.prj.quiz.model.Theme;
 import com.prj.quiz.persistence.repository.ThemeRepository;
+import com.prj.quiz.rest.filter.CommonFilter;
 import com.prj.quiz.service.exception.ObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +32,8 @@ public class ThemeService {
         return theme;
     }
 
-    public List<Theme> getAll() {
-        final List<Theme> themeList = themeRepository.getAll();
+    public List<Theme> getAll(CommonFilter commonFilter) {
+        final List<Theme> themeList = themeRepository.getAll(commonFilter);
         LOGGER.info("Retrieved all themes: {}", themeList);
         return themeList;
     }

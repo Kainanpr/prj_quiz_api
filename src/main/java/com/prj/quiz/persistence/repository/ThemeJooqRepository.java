@@ -2,6 +2,8 @@ package com.prj.quiz.persistence.repository;
 
 import com.prj.quiz.model.Theme;
 import com.prj.quiz.persistence.jooq.tables.records.ThemeRecord;
+import com.prj.quiz.rest.filter.CommonFilter;
+import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
@@ -11,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.prj.quiz.persistence.jooq.tables.Theme.THEME;
+import static org.jooq.impl.DSL.trueCondition;
 
 @Repository
 @Transactional
@@ -44,12 +47,26 @@ public class ThemeJooqRepository implements ThemeRepository {
     }
 
     @Override
-    public List<Theme> getAll() {
+    public List<Theme> getAll(CommonFilter commonFilter) {
+        final Condition queryCondition = buildCondition(commonFilter);
+
         final Result<Record> records = dslContext.select()
                 .from(THEME)
+                .where(queryCondition)
                 .fetch();
 
         return records.map(record -> toTheme(record));
+    }
+
+    private Condition buildCondition(CommonFilter filter) {
+        Condition result = trueCondition();
+
+        if (filter.getThemeName() != null) {
+            String themeName = "%" + filter.getThemeName() + "%";
+            result = result.and(THEME.NAME.likeIgnoreCase(themeName));
+        }
+
+        return result;
     }
 
     @Override

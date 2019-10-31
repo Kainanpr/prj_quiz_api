@@ -5,6 +5,7 @@ import com.prj.quiz.model.Theme;
 import com.prj.quiz.rest.dto.read.ContentReadDto;
 import com.prj.quiz.rest.dto.read.ThemeReadDto;
 import com.prj.quiz.rest.dto.write.ThemeWriteDto;
+import com.prj.quiz.rest.filter.CommonFilter;
 import com.prj.quiz.service.ThemeService;
 import com.prj.quiz.service.exception.ObjectNotFoundException;
 import org.slf4j.Logger;
@@ -68,8 +69,10 @@ public class ThemeRestController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<ThemeReadDto>> getAll() {
-        final List<Theme> themeList = themeService.getAll();
+    public ResponseEntity<List<ThemeReadDto>> getAll(CommonFilter commonFilter) {
+        LOGGER.info("Parameters received to filter: {}", commonFilter);
+
+        final List<Theme> themeList = themeService.getAll(commonFilter);
         final List<ThemeReadDto> responseBody = new ArrayList<>(themeList.size());
 
         for (Theme theme : themeList) {
