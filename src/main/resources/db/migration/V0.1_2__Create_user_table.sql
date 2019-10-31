@@ -2,7 +2,9 @@ create table user (
   id int not null auto_increment primary key,
   name varchar(50) not null,
   email varchar(50) not null,
-  password varchar(50) not null
+  password varchar(50) not null,
+
+  constraint user_uk_email unique key (email)
 );
 
 insert into user (id, name, email, password) values

@@ -51,6 +51,7 @@ public class Indexes {
     public static final Index TEST_TEST_FK_LEVEL = Indexes0.TEST_TEST_FK_LEVEL;
     public static final Index THEME_PRIMARY = Indexes0.THEME_PRIMARY;
     public static final Index USER_PRIMARY = Indexes0.USER_PRIMARY;
+    public static final Index USER_USER_UK_EMAIL = Indexes0.USER_USER_UK_EMAIL;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -72,5 +73,6 @@ public class Indexes {
         public static Index TEST_TEST_FK_LEVEL = Internal.createIndex("test_fk_level", Test.TEST, new OrderField[] { Test.TEST.LEVEL_ID }, false);
         public static Index THEME_PRIMARY = Internal.createIndex("PRIMARY", Theme.THEME, new OrderField[] { Theme.THEME.ID }, true);
         public static Index USER_PRIMARY = Internal.createIndex("PRIMARY", User.USER, new OrderField[] { User.USER.ID }, true);
+        public static Index USER_USER_UK_EMAIL = Internal.createIndex("user_uk_email", User.USER, new OrderField[] { User.USER.EMAIL }, true);
     }
 }
