@@ -36,7 +36,6 @@ public class UserJooqRepository implements UserRepository {
         final Record record = dslContext.select()
                 .from(USER)
                 .where(USER.EMAIL.eq(email))
-                .and(USER.PASSWORD.eq(password))
                 .fetchOne();
 
         return record == null ? null : toUser(record);

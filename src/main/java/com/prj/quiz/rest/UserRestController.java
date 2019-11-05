@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,8 +27,11 @@ public class UserRestController {
 
     private final UserService userService;
 
-    public UserRestController(UserService userService) {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserRestController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -100,7 +104,7 @@ public class UserRestController {
                 .setId(id)
                 .setName(userWrite.getName())
                 .setEmail(userWrite.getEmail())
-                .setPassword(userWrite.getPassword())
+                .setPassword((bCryptPasswordEncoder.encode(userWrite.getPassword())))
                 .build();
     }
 

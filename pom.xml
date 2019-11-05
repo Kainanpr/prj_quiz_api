@@ -73,6 +73,19 @@
             <artifactId>flyway-core</artifactId>
         </dependency>
 
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- JWT dependency -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.7.0</version>
+        </dependency>
+
         <!-- Scope runtime: classes should be available at runtime, but should not be used directly in compile-time -->
         <dependency>
             <groupId>mysql</groupId>
