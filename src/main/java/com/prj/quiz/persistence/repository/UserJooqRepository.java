@@ -5,6 +5,7 @@ import com.prj.quiz.persistence.jooq.tables.records.UserRecord;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +18,11 @@ import static com.prj.quiz.persistence.jooq.tables.User.USER;
 public class UserJooqRepository implements UserRepository {
     private final DSLContext dslContext;
 
-    public UserJooqRepository(DSLContext dslContext) {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserJooqRepository(DSLContext dslContext, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.dslContext = dslContext;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -33,12 +37,15 @@ public class UserJooqRepository implements UserRepository {
 
     @Override
     public User login(String email, String password) {
-        final Record record = dslContext.select()
+        final User record = dslContext.select()
                 .from(USER)
                 .where(USER.EMAIL.eq(email))
-                .fetchOne();
+                .fetchOne(this::toUser);
 
-        return record == null ? null : toUser(record);
+        if (record != null && bCryptPasswordEncoder.matches(password, record.getPassword())) {
+            return record;
+        }
+        return null;
     }
 
     private User toUser(Record record) {

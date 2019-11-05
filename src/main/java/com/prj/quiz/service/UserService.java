@@ -49,7 +49,7 @@ public class UserService {
         final User user = userRepository.login(email, password);
 
         if (user == null) {
-            throw new ObjectNotFoundException("User not found! login: " + email);
+            throw new ObjectNotFoundException("User not found! login: " + email + ", password: " + password);
         }
 
         LOGGER.info("Retrieved user by login: {}", user);
