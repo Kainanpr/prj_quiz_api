@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -67,6 +68,7 @@ public class ContentRestController {
                 .body(responseBody);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ContentReadDto> create(@RequestBody @Valid ContentWriteDto contentWrite) {
         LOGGER.info("Content received to save: {}", contentWrite);
@@ -88,6 +90,7 @@ public class ContentRestController {
                 .build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<ContentReadDto> update(@PathVariable("id") Integer id, @RequestBody @Valid ContentWriteDto contentWrite) {
         LOGGER.info("ID received to update: {}", id);
@@ -108,6 +111,7 @@ public class ContentRestController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         LOGGER.info("ID received to delete: {}", id);

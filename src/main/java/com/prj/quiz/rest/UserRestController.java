@@ -34,6 +34,7 @@ public class UserRestController {
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserReadDto> getById(@PathVariable("id") Integer id) {
         LOGGER.info("ID received to return user: {}", id);
@@ -70,6 +71,7 @@ public class UserRestController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<UserReadDto>> getAll() {
         final List<User> userList = userService.getAll();

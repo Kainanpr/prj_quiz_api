@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -66,7 +67,7 @@ public class GameRestController {
                 .body(responseBody);
     }
 
-
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<GameReadDto> create(@RequestBody @Valid GameWriteDto gameWrite) {
         LOGGER.info("Game received to save: {}", gameWrite);
@@ -89,6 +90,7 @@ public class GameRestController {
                 .build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<GameReadDto> update(@PathVariable("id") Integer id, @RequestBody @Valid GameWriteDto gameWrite) {
         LOGGER.info("ID received to update: {}", id);
@@ -110,6 +112,7 @@ public class GameRestController {
 
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> delete(@PathVariable("id") Integer contentId) {
         LOGGER.info("ID received to delete: {}", contentId);
