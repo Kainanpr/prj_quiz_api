@@ -45,17 +45,6 @@ public class UserService {
         return user;
     }
 
-    public User login(String email, String password) {
-        final User user = userRepository.login(email, password);
-
-        if (user == null) {
-            throw new ObjectNotFoundException("User not found! login: " + email + ", password: " + password);
-        }
-
-        LOGGER.info("Retrieved user by login: {}", user);
-        return user;
-    }
-
     public List<User> getAll() {
         final List<User> userList = userRepository.getAll();
         LOGGER.info("Retrieved all users: {}", userList);

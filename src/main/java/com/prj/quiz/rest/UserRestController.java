@@ -3,7 +3,6 @@ package com.prj.quiz.rest;
 import com.prj.quiz.model.User;
 import com.prj.quiz.rest.dto.read.UserReadDto;
 import com.prj.quiz.rest.dto.write.UserWriteDto;
-import com.prj.quiz.rest.filter.Login;
 import com.prj.quiz.service.UserService;
 import com.prj.quiz.service.exception.ObjectNotFoundException;
 import org.slf4j.Logger;
@@ -40,20 +39,6 @@ public class UserRestController {
 
         try {
             final User user = userService.getById(id);
-            final UserReadDto dto = toUserReadDto(user);
-            return ResponseEntity.ok(dto);
-        } catch (ObjectNotFoundException ex) {
-            LOGGER.error("{}", ex.getMessage());
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<UserReadDto> create(@RequestBody @Valid Login login) {
-        LOGGER.info("User received to login: {}", login);
-
-        try {
-            final User user = userService.login(login.getEmail(), login.getPassword());
             final UserReadDto dto = toUserReadDto(user);
             return ResponseEntity.ok(dto);
         } catch (ObjectNotFoundException ex) {

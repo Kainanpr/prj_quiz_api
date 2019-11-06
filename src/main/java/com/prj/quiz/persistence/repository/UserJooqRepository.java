@@ -5,7 +5,6 @@ import com.prj.quiz.persistence.jooq.tables.records.UserRecord;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +17,8 @@ import static com.prj.quiz.persistence.jooq.tables.User.USER;
 public class UserJooqRepository implements UserRepository {
     private final DSLContext dslContext;
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    public UserJooqRepository(DSLContext dslContext, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserJooqRepository(DSLContext dslContext) {
         this.dslContext = dslContext;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
@@ -35,19 +31,6 @@ public class UserJooqRepository implements UserRepository {
         return record == null ? null : toUser(record);
     }
 
-    @Override
-    public User login(String email, String password) {
-        final User record = dslContext.select()
-                .from(USER)
-                .where(USER.EMAIL.eq(email))
-                .fetchOne(this::toUser);
-
-        if (record != null && bCryptPasswordEncoder.matches(password, record.getPassword())) {
-            return record;
-        }
-        return null;
-    }
-
     private User toUser(Record record) {
         final UserRecord userRecord = record.into(UserRecord.class);
 
@@ -56,7 +39,16 @@ public class UserJooqRepository implements UserRepository {
                 .setName(userRecord.getName())
                 .setEmail(userRecord.getEmail())
                 .setPassword(userRecord.getPassword())
+                .setIsAdmin(userRecord.getIsAdmin())
                 .build();
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return dslContext.select()
+                .from(USER)
+                .where(USER.EMAIL.eq(email))
+                .fetchOne(this::toUser);
     }
 
     @Override
