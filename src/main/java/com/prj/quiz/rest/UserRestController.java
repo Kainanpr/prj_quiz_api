@@ -57,12 +57,10 @@ public class UserRestController {
                 .build();
     }
 
-    @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<UserReadDto> findByEmail(@PathVariable("email") String email) {
-        LOGGER.info("Email received to return user: {}", email);
-
+    @GetMapping(value = "/authenticated", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<UserReadDto> authenticated() {
         try {
-            final User user = userService.findByEmail(email);
+            final User user = userService.authenticated();
             final UserReadDto dto = toUserReadDto(user);
             return ResponseEntity.ok(dto);
         } catch (ObjectNotFoundException ex) {

@@ -20,8 +20,8 @@ public class CustomsUserDetails implements UserDetails {
                 .map(item -> new SimpleGrantedAuthority(item.getDescription())).collect(Collectors.toList());
     }
 
-    public Integer getId() {
-        return user.getId();
+    public User getUser() {
+        return user;
     }
 
     @Override
