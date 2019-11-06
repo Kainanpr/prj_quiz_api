@@ -22,7 +22,6 @@ public class UserService {
     private final GameService gameService;
     private ContentService contentService;
 
-
     public UserService(UserRepository userRepository, GameService gameService) {
         this.userRepository = userRepository;
         this.gameService = gameService;
@@ -42,6 +41,17 @@ public class UserService {
         }
 
         LOGGER.info("Retrieved user by ID: {}", user);
+        return user;
+    }
+
+    public User findByEmail(String email) {
+        final User user = userRepository.findByEmail(email);
+
+        if (user == null) {
+            throw new ObjectNotFoundException("User not found! Email: " + email);
+        }
+
+        LOGGER.info("Retrieved user by email: {}", user);
         return user;
     }
 

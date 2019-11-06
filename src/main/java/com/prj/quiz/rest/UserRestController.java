@@ -55,6 +55,20 @@ public class UserRestController {
                 .build();
     }
 
+    @GetMapping(value = "/email/{email}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<UserReadDto> findByEmail(@PathVariable("email") String email) {
+        LOGGER.info("Email received to return user: {}", email);
+
+        try {
+            final User user = userService.findByEmail(email);
+            final UserReadDto dto = toUserReadDto(user);
+            return ResponseEntity.ok(dto);
+        } catch (ObjectNotFoundException ex) {
+            LOGGER.error("{}", ex.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<UserReadDto>> getAll() {
         final List<User> userList = userService.getAll();
