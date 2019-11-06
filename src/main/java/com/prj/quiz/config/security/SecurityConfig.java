@@ -1,6 +1,7 @@
 package com.prj.quiz.config.security;
 
 import com.prj.quiz.security.JWTAuthenticationFilter;
+import com.prj.quiz.security.JWTAuthorizationFilter;
 import com.prj.quiz.security.JWTUtil;
 import com.prj.quiz.service.CustomsUserDetailsService;
 import org.springframework.context.annotation.Bean;
@@ -44,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .anyRequest().authenticated();
         http.addFilter(getJWTAuthenticationFilter());
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, customsUserDetailsService));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
