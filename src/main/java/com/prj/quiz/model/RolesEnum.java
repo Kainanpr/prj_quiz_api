@@ -1,8 +1,8 @@
 package com.prj.quiz.model;
 
 public enum RolesEnum {
-    ADMIN("ROLES_ADMIN"),
-    USER("ROLES_USER");
+    ADMIN("ROLE_ADMIN"),
+    USER("ROLE_USER");
 
     private final String description;
 

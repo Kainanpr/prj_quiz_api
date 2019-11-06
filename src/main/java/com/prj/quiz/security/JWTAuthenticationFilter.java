@@ -45,6 +45,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
         final String email = ((CustomsUserDetails) authResult.getPrincipal()).getUsername();
         final String token = jwtUtil.generateToken(email);
-        response.addHeader("Authorization", "Bearer " + token);
+        final String bearerToken = "Bearer " + token;
+        response.getWriter().write(bearerToken);
+        response.addHeader("Authorization", bearerToken);
     }
 }
