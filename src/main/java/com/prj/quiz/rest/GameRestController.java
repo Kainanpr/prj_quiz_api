@@ -90,7 +90,6 @@ public class GameRestController {
                 .build();
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<GameReadDto> update(@PathVariable("id") Integer id, @RequestBody @Valid GameWriteDto gameWrite) {
         LOGGER.info("ID received to update: {}", id);

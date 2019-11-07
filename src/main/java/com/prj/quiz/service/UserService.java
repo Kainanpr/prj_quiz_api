@@ -110,7 +110,7 @@ public class UserService {
         try {
             final CustomsUserDetails customsUserDetails = (CustomsUserDetails) SecurityContextHolder
                     .getContext().getAuthentication().getPrincipal();
-            LOGGER.info("Retrieved user authenticated: {}", customsUserDetails);
+            LOGGER.info("Retrieved user authenticated: {}", customsUserDetails.getUser());
             return customsUserDetails.getUser();
         } catch (Exception e) {
             throw new ObjectNotFoundException("User authenticated not found", e);
