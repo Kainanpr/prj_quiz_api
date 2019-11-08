@@ -61,8 +61,8 @@ public class ThemeJooqRepository implements ThemeRepository {
     private Condition buildCondition(CommonFilter filter) {
         Condition result = trueCondition();
 
-        if (filter.getThemeName() != null) {
-            String themeName = "%" + filter.getThemeName() + "%";
+        if (filter.getName() != null) {
+            String themeName = "%" + filter.getName() + "%";
             result = result.and(THEME.NAME.likeIgnoreCase(themeName));
         }
 
