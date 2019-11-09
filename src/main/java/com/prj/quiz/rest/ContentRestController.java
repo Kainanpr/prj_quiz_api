@@ -3,6 +3,7 @@ package com.prj.quiz.rest;
 import com.prj.quiz.model.Content;
 import com.prj.quiz.rest.dto.read.ContentReadDto;
 import com.prj.quiz.rest.dto.write.ContentWriteDto;
+import com.prj.quiz.rest.filter.CommonFilter;
 import com.prj.quiz.service.ContentService;
 import com.prj.quiz.service.exception.ObjectNotFoundException;
 import org.slf4j.Logger;
@@ -52,10 +53,11 @@ public class ContentRestController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<ContentReadDto>> getAll(Integer themeId) {
+    public ResponseEntity<List<ContentReadDto>> getAll(Integer themeId, CommonFilter commonFilter) {
         LOGGER.info("themeId received to filter: {}", themeId);
+        LOGGER.info("Parameters received to filter: {}", commonFilter);
 
-        final List<Content> contentList = contentService.getAll(themeId);
+        final List<Content> contentList = contentService.getAll(themeId, commonFilter);
         final List<ContentReadDto> responseBody = new ArrayList<>(contentList.size());
 
         for (Content content : contentList) {

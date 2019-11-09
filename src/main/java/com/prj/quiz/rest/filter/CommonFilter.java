@@ -8,12 +8,14 @@ public final class CommonFilter {
     private final Integer contentId;
     private final Integer levelId;
     private final String themeName;
+    private final String contentName;
 
     //Note: the constructor for this class must be public so that it can be instantiated by Spring
-    public CommonFilter(Integer contentId, Integer levelId, String themeName) {
+    public CommonFilter(Integer contentId, Integer levelId, String themeName, String contentName) {
         this.contentId = contentId;
         this.levelId = levelId;
         this.themeName = themeName;
+        this.contentName = contentName;
     }
 
     public Integer getContentId() {
@@ -26,6 +28,8 @@ public final class CommonFilter {
 
     public String getThemeName() { return  themeName; }
 
+    public String getContentName() { return contentName; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -33,12 +37,13 @@ public final class CommonFilter {
         CommonFilter that = (CommonFilter) o;
         return Objects.equals(contentId, that.contentId) &&
                 Objects.equals(levelId, that.levelId) &&
-                Objects.equals(themeName, that.themeName);
+                Objects.equals(themeName, that.themeName)&&
+                Objects.equals(contentName, that.contentName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(contentId, levelId, themeName);
+        return Objects.hash(contentId, levelId, themeName, contentName);
     }
 
     @Override
@@ -47,6 +52,7 @@ public final class CommonFilter {
                 "contentId=" + contentId +
                 ", levelId=" + levelId +
                 ", themeName=" + themeName +
+                ", contentName=" + contentName +
                 '}';
     }
 
@@ -54,6 +60,7 @@ public final class CommonFilter {
         private Integer contentId;
         private Integer levelId;
         private String themeName;
+        private String contentName;
 
         public Builder setContentId(Integer contentId) {
             this.contentId = contentId;
@@ -70,9 +77,14 @@ public final class CommonFilter {
             return this;
         }
 
+        public Builder setContentName(String contentName) {
+            this.contentName = contentName;
+            return this;
+        }
+
         @Override
         public CommonFilter build() {
-            return new CommonFilter(contentId, levelId, themeName);
+            return new CommonFilter(contentId, levelId, themeName, contentName);
         }
     }
 }

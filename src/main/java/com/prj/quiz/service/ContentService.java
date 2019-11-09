@@ -4,6 +4,7 @@ import com.prj.quiz.model.Content;
 import com.prj.quiz.model.Game;
 import com.prj.quiz.model.User;
 import com.prj.quiz.persistence.repository.ContentRepository;
+import com.prj.quiz.rest.filter.CommonFilter;
 import com.prj.quiz.service.exception.ObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,8 +45,8 @@ public class ContentService {
         return content;
     }
 
-    public List<Content> getAll(Integer themeId) {
-        final List<Content> contentList = contentRepository.getAll(themeId);
+    public List<Content> getAll(Integer themeId, CommonFilter commonFilter) {
+        final List<Content> contentList = contentRepository.getAll(themeId, commonFilter);
         LOGGER.info("Retrieved all contents: {}", contentList);
         return contentList;
     }

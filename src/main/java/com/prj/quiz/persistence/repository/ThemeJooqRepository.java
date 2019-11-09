@@ -42,7 +42,7 @@ public class ThemeJooqRepository implements ThemeRepository {
         return new Theme.Builder()
                 .setId(themeRecord.getId())
                 .setName(themeRecord.getName())
-                .setContents(contentRepository.getAll(themeRecord.getId()))
+                .setContents(contentRepository.getAll(themeRecord.getId(), null))
                 .build();
     }
 
