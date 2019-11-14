@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.prj.quiz.persistence.jooq.tables.Game.GAME;
+import static com.prj.quiz.persistence.jooq.tables.Study.STUDY;
+import static com.prj.quiz.persistence.jooq.tables.Test.TEST;
 import static org.jooq.impl.DSL.trueCondition;
 
 @Repository
@@ -41,7 +43,32 @@ public class GameJooqRepository implements GameRepository {
                 .setUserId(gameRecord.getUserId())
                 .setContentId(gameRecord.getContentId())
                 .setLevelId(gameRecord.getLevelId())
+                .setHasPractice(checkForPractices(gameRecord.getContentId(), gameRecord.getLevelId()))
                 .build();
+    }
+
+    private boolean checkForPractices(Integer contentId, Integer levelId) {
+        final List<Record> studyRecords = dslContext.select()
+                .from(STUDY)
+                .where(STUDY.CONTENT_ID.eq(contentId))
+                .and(STUDY.LEVEL_ID.eq(levelId))
+                .fetch();
+
+        if (!studyRecords.isEmpty()) {
+            return true;
+        }
+
+        final List<Record> testRecords = dslContext.select()
+                .from(TEST)
+                .where(TEST.CONTENT_ID.eq(contentId))
+                .and(TEST.LEVEL_ID.eq(levelId))
+                .fetch();
+
+        if (!testRecords.isEmpty()) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

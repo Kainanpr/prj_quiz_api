@@ -50,6 +50,7 @@ public class GameRestController {
                 .setUserId(game.getUserId())
                 .setContentId(game.getContentId())
                 .setLevelId(game.getLevelId())
+                .setHasPractice(game.isHasPractice())
                 .build();
     }
 
