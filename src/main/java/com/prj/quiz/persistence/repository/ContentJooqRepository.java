@@ -2,6 +2,7 @@ package com.prj.quiz.persistence.repository;
 
 import com.prj.quiz.model.Content;
 import com.prj.quiz.persistence.jooq.tables.records.ContentRecord;
+import com.prj.quiz.rest.filter.CommonFilter;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record;
@@ -44,8 +45,8 @@ public class ContentJooqRepository implements ContentRepository {
     }
 
     @Override
-    public List<Content> getAll(Integer themeId) {
-        final Condition queryCondition = buildCondition(themeId);
+    public List<Content> getAll(Integer themeId, CommonFilter commonFilter) {
+        final Condition queryCondition = buildCondition(themeId, commonFilter);
 
         final Result<Record> records = dslContext.select()
                 .from(CONTENT)
@@ -55,11 +56,15 @@ public class ContentJooqRepository implements ContentRepository {
         return records.map(record -> toContent(record));
     }
 
-    private Condition buildCondition(Integer themeId) {
+    private Condition buildCondition(Integer themeId, CommonFilter filter) {
         Condition result = trueCondition();
 
         if (themeId != null) {
             result = result.and(CONTENT.THEME_ID.eq(themeId));
+        }
+        if (filter != null && filter.getName() != null) {
+            String contentName = "%" + filter.getName() + "%";
+            result = result.and(CONTENT.NAME.likeIgnoreCase(contentName));
         }
 
         return result;

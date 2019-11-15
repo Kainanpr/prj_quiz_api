@@ -67,7 +67,7 @@ public class UserService {
     public User save(User user) {
         final int savedId = userRepository.save(user);
 
-        final List<Content> allContents = contentService.getAll(null);
+        final List<Content> allContents = contentService.getAll(null, null);
 
         for (Content content : allContents) {
             gameService.save(new Game.Builder()
