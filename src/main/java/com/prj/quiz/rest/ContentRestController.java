@@ -1,6 +1,7 @@
 package com.prj.quiz.rest;
 
 import com.prj.quiz.model.Content;
+import com.prj.quiz.model.Theme;
 import com.prj.quiz.rest.dto.read.ContentReadDto;
 import com.prj.quiz.rest.dto.write.ContentWriteDto;
 import com.prj.quiz.rest.filter.CommonFilter;
@@ -49,7 +50,7 @@ public class ContentRestController {
         return new ContentReadDto.Builder()
                 .setId(content.getId())
                 .setName(content.getName())
-                .setThemeId(content.getThemeId())
+                .setTheme(content.getTheme())
                 .build();
     }
 
@@ -85,10 +86,14 @@ public class ContentRestController {
     }
 
     private Content toContentModel(Integer id, ContentWriteDto contentWrite) {
+        Theme theme = new Theme.Builder()
+                .setId(contentWrite.getThemeId())
+                .build();
+
         return new Content.Builder()
                 .setId(id)
                 .setName(contentWrite.getName())
-                .setThemeId(contentWrite.getThemeId())
+                .setTheme(theme)
                 .build();
     }
 
