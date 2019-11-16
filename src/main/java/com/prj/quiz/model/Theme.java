@@ -79,8 +79,6 @@ public final class Theme {
                 Assert.isTrue(id > 0, "ID must be greater than 0");
             }
 
-            Assert.notNull(name, "Name must not be null");
-
             return new Theme(id, name, contents);
         }
     }

@@ -1,5 +1,6 @@
 package com.prj.quiz.rest.dto.read;
 
+import com.prj.quiz.model.Theme;
 import com.prj.quiz.util.ObjectBuilder;
 import org.springframework.util.Assert;
 
@@ -8,12 +9,12 @@ import java.util.Objects;
 public final class ContentReadDto {
     private final Integer id;
     private final String name;
-    private final Integer themeId;
+    private final Theme theme;
 
-    private ContentReadDto(Integer id, String name, Integer themeId) {
+    private ContentReadDto(Integer id, String name, Theme theme) {
         this.id = id;
         this.name = name;
-        this.themeId = themeId;
+        this.theme = theme;
     }
 
     public Integer getId() {
@@ -24,8 +25,8 @@ public final class ContentReadDto {
         return name;
     }
 
-    public Integer getThemeId() {
-        return themeId;
+    public Theme getTheme() {
+        return theme;
     }
 
     @Override
@@ -35,12 +36,12 @@ public final class ContentReadDto {
         ContentReadDto that = (ContentReadDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(themeId, that.themeId);
+                Objects.equals(theme, that.theme);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, themeId);
+        return Objects.hash(id, name, theme);
     }
 
     @Override
@@ -48,14 +49,14 @@ public final class ContentReadDto {
         return "ContentReadDto{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", themeId=" + themeId +
+                ", theme=" + theme +
                 '}';
     }
 
     public static final class Builder implements ObjectBuilder {
         private Integer id;
         private String name;
-        private Integer themeId;
+        private Theme theme;
 
         public Builder setId(Integer id) {
             this.id = id;
@@ -67,8 +68,8 @@ public final class ContentReadDto {
             return this;
         }
 
-        public Builder setThemeId(Integer themeId) {
-            this.themeId = themeId;
+        public Builder setTheme(Theme theme) {
+            this.theme = theme;
             return this;
         }
 
@@ -79,9 +80,8 @@ public final class ContentReadDto {
             }
 
             Assert.notNull(name, "Name must not be null");
-            Assert.notNull(themeId, "ThemeId must not be null");
 
-            return new ContentReadDto(id, name, themeId);
+            return new ContentReadDto(id, name, theme);
         }
     }
 }

@@ -61,7 +61,7 @@ public class ThemeRestController {
             contentReadDto.add(new ContentReadDto.Builder()
                     .setId(content.getId())
                     .setName(content.getName())
-                    .setThemeId(content.getThemeId())
+                    .setTheme(content.getTheme())
                     .build());
         }
 

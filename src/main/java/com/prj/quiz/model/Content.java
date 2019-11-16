@@ -8,12 +8,12 @@ import java.util.Objects;
 public final class Content {
     private final Integer id;
     private final String name;
-    private final Integer themeId;
+    private final Theme theme;
 
-    private Content(Integer id, String name, Integer themeId) {
+    private Content(Integer id, String name, Theme theme) {
         this.id = id;
         this.name = name;
-        this.themeId = themeId;
+        this.theme = theme;
     }
 
     public Integer getId() {
@@ -24,8 +24,8 @@ public final class Content {
         return name;
     }
 
-    public Integer getThemeId() {
-        return themeId;
+    public Theme getTheme() {
+        return theme;
     }
 
     @Override
@@ -35,12 +35,12 @@ public final class Content {
         Content content = (Content) o;
         return Objects.equals(id, content.id) &&
                 Objects.equals(name, content.name) &&
-                Objects.equals(themeId, content.themeId);
+                Objects.equals(theme, content.theme);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, themeId);
+        return Objects.hash(id, name, theme);
     }
 
     @Override
@@ -48,14 +48,14 @@ public final class Content {
         return "Content{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", themeId=" + themeId +
+                ", themeId=" + theme +
                 '}';
     }
 
     public static final class Builder implements ObjectBuilder {
         private Integer id;
         private String name;
-        private Integer themeId;
+        private Theme theme;
 
         public Builder setId(Integer id) {
             this.id = id;
@@ -67,8 +67,8 @@ public final class Content {
             return this;
         }
 
-        public Builder setThemeId(Integer themeId) {
-            this.themeId = themeId;
+        public Builder setTheme(Theme theme) {
+            this.theme = theme;
             return this;
         }
 
@@ -79,9 +79,8 @@ public final class Content {
             }
 
             Assert.notNull(name, "Name must not be null");
-            Assert.notNull(themeId, "ThemeId must not be null");
 
-            return new Content(id, name, themeId);
+            return new Content(id, name, theme);
         }
     }
 }
