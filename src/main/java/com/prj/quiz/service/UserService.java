@@ -4,10 +4,12 @@ import com.prj.quiz.model.Content;
 import com.prj.quiz.model.Game;
 import com.prj.quiz.model.User;
 import com.prj.quiz.persistence.repository.UserRepository;
+import com.prj.quiz.security.CustomsUserDetails;
 import com.prj.quiz.service.exception.ObjectNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +23,6 @@ public class UserService {
 
     private final GameService gameService;
     private ContentService contentService;
-
 
     public UserService(UserRepository userRepository, GameService gameService) {
         this.userRepository = userRepository;
@@ -45,14 +46,14 @@ public class UserService {
         return user;
     }
 
-    public User login(String email, String password) {
-        final User user = userRepository.login(email, password);
+    public User findByEmail(String email) {
+        final User user = userRepository.findByEmail(email);
 
         if (user == null) {
-            throw new ObjectNotFoundException("User not found! login: " + email);
+            throw new ObjectNotFoundException("User not found! Email: " + email);
         }
 
-        LOGGER.info("Retrieved user by login: {}", user);
+        LOGGER.info("Retrieved user by email: {}", user);
         return user;
     }
 
@@ -103,5 +104,16 @@ public class UserService {
         }
 
         LOGGER.info("Deleted user (deleted rows: {})", affectedRows);
+    }
+
+    public static User authenticated() {
+        try {
+            final CustomsUserDetails customsUserDetails = (CustomsUserDetails) SecurityContextHolder
+                    .getContext().getAuthentication().getPrincipal();
+            LOGGER.info("Retrieved user authenticated: {}", customsUserDetails.getUser());
+            return customsUserDetails.getUser();
+        } catch (Exception e) {
+            throw new ObjectNotFoundException("User authenticated not found", e);
+        }
     }
 }

@@ -3,7 +3,6 @@ package com.prj.quiz.rest;
 import com.prj.quiz.model.User;
 import com.prj.quiz.rest.dto.read.UserReadDto;
 import com.prj.quiz.rest.dto.write.UserWriteDto;
-import com.prj.quiz.rest.filter.Login;
 import com.prj.quiz.service.UserService;
 import com.prj.quiz.service.exception.ObjectNotFoundException;
 import org.slf4j.Logger;
@@ -11,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,10 +27,14 @@ public class UserRestController {
 
     private final UserService userService;
 
-    public UserRestController(UserService userService) {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public UserRestController(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userService = userService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserReadDto> getById(@PathVariable("id") Integer id) {
         LOGGER.info("ID received to return user: {}", id);
@@ -44,12 +49,18 @@ public class UserRestController {
         }
     }
 
-    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<UserReadDto> create(@RequestBody @Valid Login login) {
-        LOGGER.info("User received to login: {}", login);
+    private UserReadDto toUserReadDto(User user) {
+        return new UserReadDto.Builder()
+                .setId(user.getId())
+                .setName(user.getName())
+                .setEmail(user.getEmail())
+                .build();
+    }
 
+    @GetMapping(value = "/authenticated", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<UserReadDto> authenticated() {
         try {
-            final User user = userService.login(login.getEmail(), login.getPassword());
+            final User user = userService.authenticated();
             final UserReadDto dto = toUserReadDto(user);
             return ResponseEntity.ok(dto);
         } catch (ObjectNotFoundException ex) {
@@ -58,15 +69,7 @@ public class UserRestController {
         }
     }
 
-    private UserReadDto toUserReadDto(User user) {
-        return new UserReadDto.Builder()
-                .setId(user.getId())
-                .setName(user.getName())
-                .setEmail(user.getEmail())
-                .setPassword(user.getPassword())
-                .build();
-    }
-
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<UserReadDto>> getAll() {
         final List<User> userList = userService.getAll();
@@ -80,7 +83,6 @@ public class UserRestController {
                 .status(HttpStatus.OK)
                 .body(responseBody);
     }
-
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserReadDto> create(@RequestBody @Valid UserWriteDto userWrite) {
@@ -100,10 +102,11 @@ public class UserRestController {
                 .setId(id)
                 .setName(userWrite.getName())
                 .setEmail(userWrite.getEmail())
-                .setPassword(userWrite.getPassword())
+                .setPassword((bCryptPasswordEncoder.encode(userWrite.getPassword())))
                 .build();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<UserReadDto> update(@PathVariable("id") Integer id, @RequestBody @Valid UserWriteDto userWrite) {
         LOGGER.info("ID received to update: {}", id);
@@ -125,6 +128,7 @@ public class UserRestController {
 
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> delete(@PathVariable("id") Integer id) {
         LOGGER.info("ID received to delete: {}", id);

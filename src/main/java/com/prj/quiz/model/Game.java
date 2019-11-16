@@ -10,12 +10,14 @@ public class Game {
     private final Integer userId;
     private final Integer contentId;
     private final Integer levelId;
+    private final boolean hasPractice;
 
-    private Game(Integer id, Integer userId, Integer contentId, Integer levelId) {
+    private Game(Integer id, Integer userId, Integer contentId, Integer levelId, boolean hasPractice) {
         this.id = id;
         this.userId = userId;
         this.contentId = contentId;
         this.levelId = levelId;
+        this.hasPractice = hasPractice;
     }
 
     public Integer getId() {
@@ -34,12 +36,17 @@ public class Game {
         return levelId;
     }
 
+    public boolean isHasPractice() {
+        return hasPractice;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return Objects.equals(id, game.id) &&
+        return hasPractice == game.hasPractice &&
+                Objects.equals(id, game.id) &&
                 Objects.equals(userId, game.userId) &&
                 Objects.equals(contentId, game.contentId) &&
                 Objects.equals(levelId, game.levelId);
@@ -47,7 +54,7 @@ public class Game {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, contentId, levelId);
+        return Objects.hash(id, userId, contentId, levelId, hasPractice);
     }
 
     @Override
@@ -57,6 +64,7 @@ public class Game {
                 ", userId=" + userId +
                 ", contentId=" + contentId +
                 ", levelId=" + levelId +
+                ", hasPractice=" + hasPractice +
                 '}';
     }
 
@@ -65,6 +73,7 @@ public class Game {
         private Integer userId;
         private Integer contentId;
         private Integer levelId;
+        private boolean hasPractice;
 
         public Builder setId(Integer id) {
             this.id = id;
@@ -86,6 +95,11 @@ public class Game {
             return this;
         }
 
+        public Builder setHasPractice(boolean hasPractice) {
+            this.hasPractice = hasPractice;
+            return this;
+        }
+
         @Override
         public Game build() {
             if (id != null) {
@@ -94,7 +108,7 @@ public class Game {
 
             Assert.notNull(levelId, "LevelId must not be null");
 
-            return new Game(id, userId, contentId, levelId);
+            return new Game(id, userId, contentId, levelId, hasPractice);
         }
     }
 }

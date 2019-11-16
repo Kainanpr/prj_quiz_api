@@ -10,12 +10,14 @@ public final class User {
     private final String name;
     private final String email;
     private final String password;
+    private final boolean isAdmin;
 
-    private User(Integer id, String name, String email, String password) {
+    private User(Integer id, String name, String email, String password, boolean isAdmin) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.isAdmin = isAdmin;
     }
 
     public Integer getId() {
@@ -34,12 +36,17 @@ public final class User {
         return password;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
+        return isAdmin == user.isAdmin &&
+                Objects.equals(id, user.id) &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(password, user.password);
@@ -47,7 +54,7 @@ public final class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, password);
+        return Objects.hash(id, name, email, password, isAdmin);
     }
 
     @Override
@@ -57,6 +64,7 @@ public final class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", isAdmin=" + isAdmin +
                 '}';
     }
 
@@ -65,6 +73,7 @@ public final class User {
         private String name;
         private String email;
         private String password;
+        private boolean isAdmin;
 
         public Builder setId(Integer id) {
             this.id = id;
@@ -86,6 +95,11 @@ public final class User {
             return this;
         }
 
+        public Builder setIsAdmin(boolean isAdmin) {
+            this.isAdmin = isAdmin;
+            return this;
+        }
+
         @Override
         public User build() {
             if (id != null) {
@@ -96,7 +110,7 @@ public final class User {
             Assert.notNull(email, "Email must not be null");
             Assert.notNull(password, "Password must not be null");
 
-            return new User(id, name, email, password);
+            return new User(id, name, email, password, isAdmin);
         }
     }
 }

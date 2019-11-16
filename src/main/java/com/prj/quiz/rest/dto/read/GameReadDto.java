@@ -10,12 +10,14 @@ public class GameReadDto {
     private final Integer userId;
     private final Integer contentId;
     private final Integer levelId;
+    private final boolean hasPractice;
 
-    private GameReadDto(Integer id, Integer userId, Integer contentId, Integer levelId) {
+    private GameReadDto(Integer id, Integer userId, Integer contentId, Integer levelId, boolean hasPractice) {
         this.id = id;
         this.userId = userId;
         this.contentId = contentId;
         this.levelId = levelId;
+        this.hasPractice = hasPractice;
     }
 
     public Integer getId() {
@@ -34,6 +36,10 @@ public class GameReadDto {
         return levelId;
     }
 
+    public boolean isHasPractice() {
+        return hasPractice;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -47,7 +53,7 @@ public class GameReadDto {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userId, contentId, levelId);
+        return Objects.hash(id, userId, contentId, levelId, hasPractice);
     }
 
     @Override
@@ -57,6 +63,7 @@ public class GameReadDto {
                 ", userId=" + userId +
                 ", contentId=" + contentId +
                 ", levelId=" + levelId +
+                ", hasPractice=" + hasPractice +
                 '}';
     }
 
@@ -65,6 +72,7 @@ public class GameReadDto {
         private Integer userId;
         private Integer contentId;
         private Integer levelId;
+        private boolean hasPractice;
 
         public Builder setId(Integer id) {
             this.id = id;
@@ -86,6 +94,11 @@ public class GameReadDto {
             return this;
         }
 
+        public Builder setHasPractice(boolean hasPractice) {
+            this.hasPractice = hasPractice;
+            return this;
+        }
+
         @Override
         public GameReadDto build() {
             if (id != null) {
@@ -96,7 +109,7 @@ public class GameReadDto {
             Assert.notNull(contentId, "ContentId must not be null");
             Assert.notNull(levelId, "LevelId must not be null");
 
-            return new GameReadDto(id, userId, contentId, levelId);
+            return new GameReadDto(id, userId, contentId, levelId, hasPractice);
         }
     }
 }

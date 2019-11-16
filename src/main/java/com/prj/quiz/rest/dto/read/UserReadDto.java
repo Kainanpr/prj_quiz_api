@@ -9,13 +9,11 @@ public final class UserReadDto {
     private final Integer id;
     private final String name;
     private final String email;
-    private final String password;
 
-    private UserReadDto(Integer id, String name, String email, String password) {
+    private UserReadDto(Integer id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.password = password;
     }
 
     public Integer getId() {
@@ -30,10 +28,6 @@ public final class UserReadDto {
         return email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,13 +35,12 @@ public final class UserReadDto {
         UserReadDto that = (UserReadDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(email, that.email) &&
-                Objects.equals(password, that.password);
+                Objects.equals(email, that.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, password);
+        return Objects.hash(id, name, email);
     }
 
     @Override
@@ -56,7 +49,6 @@ public final class UserReadDto {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 
@@ -64,7 +56,6 @@ public final class UserReadDto {
         private Integer id;
         private String name;
         private String email;
-        private String password;
 
         public Builder setId(Integer id) {
             this.id = id;
@@ -81,11 +72,6 @@ public final class UserReadDto {
             return this;
         }
 
-        public Builder setPassword(String password) {
-            this.password = password;
-            return this;
-        }
-
         @Override
         public UserReadDto build() {
             if (id != null) {
@@ -94,9 +80,8 @@ public final class UserReadDto {
 
             Assert.notNull(name, "Name must not be null");
             Assert.notNull(email, "Email must not be null");
-            Assert.notNull(password, "Password must not be null");
 
-            return new UserReadDto(id, name, email, password);
+            return new UserReadDto(id, name, email);
         }
     }
 }

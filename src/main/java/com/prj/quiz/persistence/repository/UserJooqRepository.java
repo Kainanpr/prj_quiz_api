@@ -31,17 +31,6 @@ public class UserJooqRepository implements UserRepository {
         return record == null ? null : toUser(record);
     }
 
-    @Override
-    public User login(String email, String password) {
-        final Record record = dslContext.select()
-                .from(USER)
-                .where(USER.EMAIL.eq(email))
-                .and(USER.PASSWORD.eq(password))
-                .fetchOne();
-
-        return record == null ? null : toUser(record);
-    }
-
     private User toUser(Record record) {
         final UserRecord userRecord = record.into(UserRecord.class);
 
@@ -50,7 +39,16 @@ public class UserJooqRepository implements UserRepository {
                 .setName(userRecord.getName())
                 .setEmail(userRecord.getEmail())
                 .setPassword(userRecord.getPassword())
+                .setIsAdmin(userRecord.getIsAdmin())
                 .build();
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        return dslContext.select()
+                .from(USER)
+                .where(USER.EMAIL.eq(email))
+                .fetchOne(this::toUser);
     }
 
     @Override

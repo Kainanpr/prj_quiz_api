@@ -5,10 +5,12 @@ import com.prj.quiz.util.ObjectBuilder;
 import java.util.Objects;
 
 public final class Login {
-    private final String email;
-    private final String password;
+    private String email;
+    private String password;
 
-    //Note: the constructor for this class must be public so that it can be instantiated by Spring
+    public Login() {
+    }
+
     public Login(String email, String password) {
         this.email = email;
         this.password = password;
