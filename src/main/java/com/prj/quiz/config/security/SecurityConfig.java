@@ -33,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.jwtUtil = jwtUtil;
     }
 
-    public static final String[] PUBLIC_MATCHERS = {
-            "/v1/users/login"
+    public static final String[] PUBLIC_MATCHERS_GET = {
+            "/v1/users/is-admin"
     };
 
     public static final String[] PUBLIC_MATCHERS_POST = {
@@ -45,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         http.authorizeRequests()
-                .antMatchers(PUBLIC_MATCHERS).permitAll()
+                .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
                 .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 .anyRequest().authenticated();
         http.addFilter(getJWTAuthenticationFilter());

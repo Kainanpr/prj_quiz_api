@@ -69,6 +69,19 @@ public class UserRestController {
         }
     }
 
+    @GetMapping(value = "/is-admin", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<Boolean> isAdmin(String email) {
+        LOGGER.info("Email received to return user: {}", email);
+
+        try {
+            final User user = userService.findByEmail(email);
+            return ResponseEntity.ok(user.isAdmin());
+        } catch (ObjectNotFoundException ex) {
+            LOGGER.error("{}", ex.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<UserReadDto>> getAll() {
