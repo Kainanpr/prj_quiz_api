@@ -1,7 +1,7 @@
 create table study (
   id int not null auto_increment primary key,
-  word varchar(50) not null,
-  translation varchar(50) not null,
+  word text not null,
+  translation text not null,
   content_id int not null,
   level_id int not null,
 

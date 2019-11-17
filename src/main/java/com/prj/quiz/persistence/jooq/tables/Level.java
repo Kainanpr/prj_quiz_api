@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Level extends TableImpl<LevelRecord> {
 
-    private static final long serialVersionUID = -166676884;
+    private static final long serialVersionUID = -686842672;
 
     /**
      * The reference instance of <code>level</code>
@@ -62,7 +62,7 @@ public class Level extends TableImpl<LevelRecord> {
     /**
      * The column <code>level.name</code>.
      */
-    public final TableField<LevelRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
+    public final TableField<LevelRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * Create a <code>level</code> table reference

@@ -1,6 +1,6 @@
 create table content (
   id int not null auto_increment primary key,
-  name varchar(50) not null,
+  name varchar(100) not null,
   theme_id int not null,
 
   constraint content_fk_theme foreign key (theme_id) references theme (id)

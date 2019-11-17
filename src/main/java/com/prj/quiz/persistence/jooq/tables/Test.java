@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Test extends TableImpl<TestRecord> {
 
-    private static final long serialVersionUID = 1579877825;
+    private static final long serialVersionUID = -1199254399;
 
     /**
      * The reference instance of <code>test</code>
@@ -67,32 +67,32 @@ public class Test extends TableImpl<TestRecord> {
     /**
      * The column <code>test.option_1</code>.
      */
-    public final TableField<TestRecord, String> OPTION_1 = createField("option_1", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<TestRecord, String> OPTION_1 = createField("option_1", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
     /**
      * The column <code>test.option_2</code>.
      */
-    public final TableField<TestRecord, String> OPTION_2 = createField("option_2", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<TestRecord, String> OPTION_2 = createField("option_2", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
     /**
      * The column <code>test.option_3</code>.
      */
-    public final TableField<TestRecord, String> OPTION_3 = createField("option_3", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<TestRecord, String> OPTION_3 = createField("option_3", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
     /**
      * The column <code>test.option_4</code>.
      */
-    public final TableField<TestRecord, String> OPTION_4 = createField("option_4", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<TestRecord, String> OPTION_4 = createField("option_4", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
     /**
      * The column <code>test.option_5</code>.
      */
-    public final TableField<TestRecord, String> OPTION_5 = createField("option_5", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<TestRecord, String> OPTION_5 = createField("option_5", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
     /**
      * The column <code>test.answer</code>.
      */
-    public final TableField<TestRecord, String> ANSWER = createField("answer", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+    public final TableField<TestRecord, String> ANSWER = createField("answer", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
     /**
      * The column <code>test.content_id</code>.

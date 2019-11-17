@@ -1,7 +1,7 @@
 create table user (
   id int not null auto_increment primary key,
-  name varchar(50) not null,
-  email varchar(50) not null,
+  name varchar(100) not null,
+  email varchar(100) not null,
   password varchar(255) not null,
   is_admin bit(1) not null default 0,
 

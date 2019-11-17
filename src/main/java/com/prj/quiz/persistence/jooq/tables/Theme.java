@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Theme extends TableImpl<ThemeRecord> {
 
-    private static final long serialVersionUID = -400766561;
+    private static final long serialVersionUID = 251076849;
 
     /**
      * The reference instance of <code>theme</code>
@@ -62,7 +62,7 @@ public class Theme extends TableImpl<ThemeRecord> {
     /**
      * The column <code>theme.name</code>.
      */
-    public final TableField<ThemeRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
+    public final TableField<ThemeRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * Create a <code>theme</code> table reference

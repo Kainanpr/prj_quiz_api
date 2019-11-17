@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Content extends TableImpl<ContentRecord> {
 
-    private static final long serialVersionUID = -603397132;
+    private static final long serialVersionUID = 1157242178;
 
     /**
      * The reference instance of <code>content</code>
@@ -62,7 +62,7 @@ public class Content extends TableImpl<ContentRecord> {
     /**
      * The column <code>content.name</code>.
      */
-    public final TableField<ContentRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
+    public final TableField<ContentRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>content.theme_id</code>.
