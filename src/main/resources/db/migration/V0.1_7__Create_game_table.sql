@@ -15,4 +15,4 @@ insert into game (id, user_id, content_id, level_id) values
 (3, 1, 3, 1),
 (4, 1, 4, 1),
 (5, 1, 5, 1),
-(6, 1, 6, 1),
+(6, 1, 6, 1);
