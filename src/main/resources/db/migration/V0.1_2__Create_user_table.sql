@@ -9,4 +9,4 @@ create table user (
 );
 
 insert into user (id, name, email, password, is_admin) values
-(1, 'Admin', 'admin', '$2a$10$bnSykDJ3YBEb6Y0B6dbez.jCXLOVGhc6cBV5fXRvtOovSkI/3qTQO', 1),
+(1, 'Admin', 'admin@quiz.com', '$2a$10$bnSykDJ3YBEb6Y0B6dbez.jCXLOVGhc6cBV5fXRvtOovSkI/3qTQO', 1),
