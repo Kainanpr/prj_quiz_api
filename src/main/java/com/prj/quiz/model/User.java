@@ -3,6 +3,7 @@ package com.prj.quiz.model;
 import com.prj.quiz.util.ObjectBuilder;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public final class User {
@@ -11,13 +12,15 @@ public final class User {
     private final String email;
     private final String password;
     private final boolean isAdmin;
+    private final LocalDateTime lastLogin;
 
-    private User(Integer id, String name, String email, String password, boolean isAdmin) {
+    private User(Integer id, String name, String email, String password, boolean isAdmin, LocalDateTime lastLogin) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.lastLogin = lastLogin;
     }
 
     public Integer getId() {
@@ -40,6 +43,10 @@ public final class User {
         return isAdmin;
     }
 
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,12 +56,13 @@ public final class User {
                 Objects.equals(id, user.id) &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password);
+                Objects.equals(password, user.password) &&
+                Objects.equals(lastLogin, user.lastLogin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, password, isAdmin);
+        return Objects.hash(id, name, email, password, isAdmin, lastLogin);
     }
 
     @Override
@@ -65,6 +73,7 @@ public final class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", isAdmin=" + isAdmin +
+                ", lastLogin=" + lastLogin +
                 '}';
     }
 
@@ -74,6 +83,7 @@ public final class User {
         private String email;
         private String password;
         private boolean isAdmin;
+        private LocalDateTime lastLogin;
 
         public Builder setId(Integer id) {
             this.id = id;
@@ -100,6 +110,11 @@ public final class User {
             return this;
         }
 
+        public Builder setLastLogin(LocalDateTime lastLogin) {
+            this.lastLogin = lastLogin;
+            return this;
+        }
+
         @Override
         public User build() {
             if (id != null) {
@@ -110,7 +125,7 @@ public final class User {
             Assert.notNull(email, "Email must not be null");
             Assert.notNull(password, "Password must not be null");
 
-            return new User(id, name, email, password, isAdmin);
+            return new User(id, name, email, password, isAdmin, lastLogin);
         }
     }
 }

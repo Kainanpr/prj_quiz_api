@@ -3,17 +3,20 @@ package com.prj.quiz.rest.dto.read;
 import com.prj.quiz.util.ObjectBuilder;
 import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public final class UserReadDto {
     private final Integer id;
     private final String name;
     private final String email;
+    private final LocalDateTime lastLogin;
 
-    private UserReadDto(Integer id, String name, String email) {
+    private UserReadDto(Integer id, String name, String email, LocalDateTime lastLogin) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.lastLogin = lastLogin;
     }
 
     public Integer getId() {
@@ -28,6 +31,10 @@ public final class UserReadDto {
         return email;
     }
 
+    public LocalDateTime getLastLogin() {
+        return lastLogin;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -35,12 +42,13 @@ public final class UserReadDto {
         UserReadDto that = (UserReadDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(email, that.email);
+                Objects.equals(email, that.email) &&
+                Objects.equals(lastLogin, that.lastLogin);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email);
+        return Objects.hash(id, name, email, lastLogin);
     }
 
     @Override
@@ -49,6 +57,7 @@ public final class UserReadDto {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", lastLogin=" + lastLogin +
                 '}';
     }
 
@@ -56,6 +65,7 @@ public final class UserReadDto {
         private Integer id;
         private String name;
         private String email;
+        private LocalDateTime lastLogin;
 
         public Builder setId(Integer id) {
             this.id = id;
@@ -72,6 +82,11 @@ public final class UserReadDto {
             return this;
         }
 
+        public Builder setLastLogin(LocalDateTime lastLogin) {
+            this.lastLogin = lastLogin;
+            return this;
+        }
+
         @Override
         public UserReadDto build() {
             if (id != null) {
@@ -81,7 +96,7 @@ public final class UserReadDto {
             Assert.notNull(name, "Name must not be null");
             Assert.notNull(email, "Email must not be null");
 
-            return new UserReadDto(id, name, email);
+            return new UserReadDto(id, name, email, lastLogin);
         }
     }
 }

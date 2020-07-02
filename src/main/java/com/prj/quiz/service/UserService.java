@@ -116,4 +116,15 @@ public class UserService {
             throw new ObjectNotFoundException("User authenticated not found", e);
         }
     }
+
+    @Transactional
+    public void updateLastLogin(int id) {
+        final int affectedRows = userRepository.updateLastLogin(id);
+
+        if (affectedRows == 0) {
+            throw new ObjectNotFoundException("Could not find user with id (not updated last login): " + id);
+        }
+
+        LOGGER.info("Updated last login (updated rows: {})", affectedRows);
+    }
 }

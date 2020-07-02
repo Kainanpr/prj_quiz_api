@@ -16,4 +16,6 @@ public interface UserRepository {
     int update(User user);
 
     int delete(Integer id);
+
+    int updateLastLogin(int id);
 }

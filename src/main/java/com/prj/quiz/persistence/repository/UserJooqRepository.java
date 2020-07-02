@@ -8,6 +8,8 @@ import org.jooq.Result;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.prj.quiz.persistence.jooq.tables.User.USER;
@@ -16,9 +18,11 @@ import static com.prj.quiz.persistence.jooq.tables.User.USER;
 @Transactional
 public class UserJooqRepository implements UserRepository {
     private final DSLContext dslContext;
+    private final Clock clock;
 
-    public UserJooqRepository(DSLContext dslContext) {
+    public UserJooqRepository(DSLContext dslContext, Clock clock) {
         this.dslContext = dslContext;
+        this.clock = clock;
     }
 
     @Override
@@ -40,6 +44,7 @@ public class UserJooqRepository implements UserRepository {
                 .setEmail(userRecord.getEmail())
                 .setPassword(userRecord.getPassword())
                 .setIsAdmin(userRecord.getIsAdmin())
+                .setLastLogin(userRecord.getLastLogin())
                 .build();
     }
 
@@ -89,6 +94,14 @@ public class UserJooqRepository implements UserRepository {
     @Override
     public int delete(Integer id) {
         return dslContext.deleteFrom(USER)
+                .where(USER.ID.eq(id))
+                .execute();
+    }
+
+    @Override
+    public int updateLastLogin(int id) {
+        return dslContext.update(USER)
+                .set(USER.LAST_LOGIN, LocalDateTime.now(clock))
                 .where(USER.ID.eq(id))
                 .execute();
     }

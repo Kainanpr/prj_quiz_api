@@ -8,6 +8,7 @@ import com.prj.quiz.persistence.jooq.DefaultSchema;
 import com.prj.quiz.persistence.jooq.Indexes;
 import com.prj.quiz.persistence.jooq.tables.records.UserRecord;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = -1913749266;
+    private static final long serialVersionUID = -1913801098;
 
     /**
      * The reference instance of <code>user</code>
@@ -78,6 +79,11 @@ public class User extends TableImpl<UserRecord> {
      * The column <code>user.is_admin</code>.
      */
     public final TableField<UserRecord, Boolean> IS_ADMIN = createField("is_admin", org.jooq.impl.SQLDataType.BIT.nullable(false).defaultValue(org.jooq.impl.DSL.inline("b'0'", org.jooq.impl.SQLDataType.BIT)), this, "");
+
+    /**
+     * The column <code>user.last_login</code>.
+     */
+    public final TableField<UserRecord, LocalDateTime> LAST_LOGIN = createField("last_login", org.jooq.impl.SQLDataType.LOCALDATETIME.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * Create a <code>user</code> table reference

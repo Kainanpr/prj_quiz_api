@@ -4,6 +4,7 @@ import com.prj.quiz.security.JWTAuthenticationFilter;
 import com.prj.quiz.security.JWTAuthorizationFilter;
 import com.prj.quiz.security.JWTUtil;
 import com.prj.quiz.service.CustomsUserDetailsService;
+import com.prj.quiz.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -26,10 +27,12 @@ import java.util.List;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomsUserDetailsService customsUserDetailsService;
+    private final UserService userService;
     private final JWTUtil jwtUtil;
 
-    public SecurityConfig(CustomsUserDetailsService customsUserDetailsService, JWTUtil jwtUtil) {
+    public SecurityConfig(CustomsUserDetailsService customsUserDetailsService, UserService userService, JWTUtil jwtUtil) {
         this.customsUserDetailsService = customsUserDetailsService;
+        this.userService = userService;
         this.jwtUtil = jwtUtil;
     }
 
@@ -68,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public JWTAuthenticationFilter getJWTAuthenticationFilter() throws Exception {
-        final JWTAuthenticationFilter filter = new JWTAuthenticationFilter(authenticationManager(), jwtUtil);
+        final JWTAuthenticationFilter filter = new JWTAuthenticationFilter(authenticationManager(), userService, jwtUtil);
         filter.setFilterProcessesUrl("/v1/login");
         return filter;
     }
