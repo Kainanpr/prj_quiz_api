@@ -101,7 +101,7 @@ public class UserJooqRepository implements UserRepository {
     @Override
     public int updateLastLogin(int id) {
         return dslContext.update(USER)
-                .set(USER.LAST_LOGIN, LocalDateTime.now(clock).minusHours(6)) // -6 hours to correct the timezone
+                .set(USER.LAST_LOGIN, LocalDateTime.now(clock).minusHours(3)) // -3 hours to correct the timezone
                 .where(USER.ID.eq(id))
                 .execute();
     }
